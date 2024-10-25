@@ -126,7 +126,7 @@ Basically, CS:GO/CS2 is streaming data to local app-server, that transforms data
 ##
 - Start RUN_HUD.bat file if you want to keep the mini map from the game.
 ##
-- Run Overlay Exe from here: [OVERLAY DOWNLOAD](https://drive.google.com/file/d/1gHMgI85guGmWOkSV4aqhUl0hUOSioxV1/view?usp=sharing) or just go to your browser [http://localhost:2626](http://localhost:2626)
+- Run Overlay Exe from here: [OVERLAY DOWNLOAD](https://drive.google.com/file/d/1_NoHJRfSVFF8yTp8hXabf9Du76mowhPD/view?usp=drive_link) or just go to your browser [http://localhost:2626](http://localhost:2626)
 - Ensure that in the Overlay exe folder, there is a config.json file with the following:
 - Radar will be on :36364 port [http://localhost:36364](http://localhost:36364)
 
