@@ -1,0 +1,10 @@
+[
+    {
+        "bind":"Alt+C",
+        "action":"toggleCams"
+    },
+    {
+        "bind": "Tab",
+        "action": "openPlayersList"
+    }
+]

@@ -1,0 +1,4 @@
+1. hud.json
+2. sockets connection
+3. Include additional scripts (manager.js, actions.js)
+4. Add listeners

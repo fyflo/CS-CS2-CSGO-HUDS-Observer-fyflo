@@ -1,0 +1,716 @@
+.row
+	.col.s12(style="text-align:center;")
+		.input-field.col.s12
+			select#botype
+				option(value='', disabled='', selected='') Choose your option
+				option(value=null) None
+				option(value='bo0') Best Of 1 LOGO default
+				option(value='bo1') Best Of 1
+				option(value='bo3') Best Of 3
+				option(value='bo5') Best Of 5
+			label Choose type (in BO1 bar doesnt show)
+		.col.s12.m6
+			.row
+				h5.nav Team 1
+				.input-field.col.s12
+					select#team_1_score
+						option(value='0', selected) 0
+						option(value='1') 1
+						option(value='2') 2
+						option(value='3') 3
+					label Map wins for team 1
+				//.input-field.col.s12
+					select#team_1_map
+						option(value='', selected) NONE
+						option(value='DECIDER ') DECIDER
+						option(value='Now playing ANUBIS | ') ANUBIS
+						option(value='Now playing INFERNO | ') INFERNO
+						option(value='Now playing MIRAGE | ') MIRAGE
+						option(value='Now playing OVERPASS | ') OVERPASS
+						option(value='Now playing NUKE | ') NUKE
+						option(value='Now playing ANCIENT | ') ANCIENT
+						option(value='Now playing VERTIGO | ') VERTIGO
+					label Map pick team team 1 
+			.row
+				.input-field.col.s12
+					select#team_1.icons
+						option(value=null) NONE
+						option(value='auto', selected) Try to match team automatically
+					label Set team 1
+				.input-field.col.s12
+					input#team_1_coach.validate(placeholder='Enter in SteamID64', type='text', name="Enter in SteamID64")
+					label(for='Enter in SteamID64') Hide team 1 coach
+		.col.s12.m6
+			.row
+				h5.nav Team 2
+				.input-field.col.s12
+					select#team_2_score
+						option(value='0', selected) 0
+						option(value='1') 1
+						option(value='2') 2
+						option(value='3') 3
+					label Map wins for team 2
+				//.input-field.col.s12
+					select#team_2_map
+						option(value='', selected) NONE
+						option(value='DECIDER') DECIDER
+						option(value='Now playing ANUBIS | ') ANUBIS
+						option(value='Now playing INFERNO | ') INFERNO
+						option(value='Now playing MIRAGE | ') MIRAGE
+						option(value='Now playing OVERPASS | ') OVERPASS
+						option(value='Now playing NUKE | ') NUKE
+						option(value='Now playing ANCIENT | ') ANCIENT
+						option(value='Now playing VERTIGO | ') VERTIGO
+					label Map pick team 2
+			.row
+				.input-field.col.s12
+					select#team_2.icons
+						option(value=null) NONE
+						option(value='auto', selected) Try to match team automatically
+					label Set team 2
+				.input-field.col.s12
+					input#team_2_coach.validate(placeholder='Enter in SteamID64', type='text')
+					label Hide team 2 coach 
+		details.col.s12 
+			summary.btn LIVE MAP PICK Expand | Развернуть
+			.col.s12
+				.row
+					h5.nav LIVE MAP PICK
+					.input-field.col.s12
+						select#online_map
+							option(value='', selected) NONE
+							option(value='Playing DECIDER') DECIDER
+							option(value='Playing ANUBIS | Pick ') ANUBIS
+							option(value='Playing INFERNO | Pick ') INFERNO
+							option(value='Playing MIRAGE | Pick ') MIRAGE
+							option(value='Playing OVERPASS | Pick ') OVERPASS
+							option(value='Playing NUKE | Pick ') NUKE
+							option(value='Playing ANCIENT | Pick ') ANCIENT
+							option(value='Playing VERTIGO | Pick ') VERTIGO
+							option(value='Playing DUST2 | Pick ') DUST2
+							option(value='Playing ANUBIS | DECIDER ') ANUBIS | DECIDER 
+							option(value='Playing INFERNO | DECIDER ') INFERNO | DECIDER 
+							option(value='Playing MIRAGE | DECIDER ') MIRAGE | DECIDER 
+							option(value='Playing OVERPASS | DECIDER ') OVERPASS | DECIDER 
+							option(value='Playing NUKE | DECIDER ') NUKE | DECIDER 
+							option(value='Playing ANCIENT | DECIDER ') ANCIENT | DECIDER 
+							option(value='Playing VERTIGO | DECIDER') VERTIGO | DECIDER 
+							option(value='Playing DUST2 | DECIDER') DUST2 | DECIDER 
+						label Map pick team
+				.row
+			.col.s12
+				.row
+					.input-field.col.s12
+						input#team_pick_map.validate(placeholder='Team Name', type='text', name="team_pick_map")
+						label(for='team_pick_map') Picked by Team Name
+		details.col.s12 
+			summary.btn MAP PICK Expand | Развернуть
+			.row
+				#Map1Card.col.s12.m4
+					.row
+						h5.nav 1 LIVE MAP PICK
+						.input-field.col.s12
+							select.map_pick_1
+								option(value='', selected) NONE
+								option(value='DECIDER') DECIDER
+								option(value='ANUBIS') ANUBIS
+								option(value='INFERNO') INFERNO
+								option(value='MIRAGE') MIRAGE
+								option(value='OVERPASS') OVERPASS
+								option(value='NUKE') NUKE
+								option(value='ANCIENT') ANCIENT
+								option(value='VERTIGO') VERTIGO
+								option(value='DUST2') DUST2
+							label Map pick team
+						.input-field.col.s12
+							select.playing_1
+								option(value='Playing NOW', selected) Playing NOW
+								option(value='Played') Played
+							label Peak status MAP
+						.input-field.col.s12
+							input.score_map_1.validate(placeholder='Score Map 1', type='text', name="score_map_1")
+							label(for='score_map_1') Score Map 1 - : -
+						.input-field.col.s12
+							select#team_3.icons
+								option(value=null) NONE
+								option(value='auto', selected) Select pick command
+							label Pick Team 1 Map
+						.input-field.col.s12
+							select#team_4.icons
+								option(value=null) NONE
+								option(value='auto', selected) No winner selected
+							label WIN Pick Team 1 Map
+						.input-field.col.s12
+							a.waves-effect.waves-light.btn-small#swap5 TEAM 1 PICK 1 MAP
+								i.material-icons task_alt
+							a.waves-effect.waves-light.btn-small#swap6 TEAM 2 PICK 1 MAP
+								i.material-icons task_alt
+							a.waves-effect.waves-light.btn#win1 TEAM 1 WIN 1 MAP
+								i.material-icons task_alt
+							a.waves-effect.waves-light.btn#win2 TEAM 2 WIN 1 MAP
+								i.material-icons task_alt
+				#Map2Card.col.s12.m4
+					.row
+						h5.nav 2 LIVE MAP PICK
+						.input-field.col.s12
+							select.map_pick_2
+								option(value='', selected) NONE
+								option(value='DECIDER') DECIDER
+								option(value='ANUBIS') ANUBIS
+								option(value='INFERNO') INFERNO
+								option(value='MIRAGE') MIRAGE
+								option(value='OVERPASS') OVERPASS
+								option(value='NUKE') NUKE
+								option(value='ANCIENT') ANCIENT
+								option(value='VERTIGO') VERTIGO
+								option(value='DUST2') DUST2
+							label Map pick team
+						.input-field.col.s12
+							select.playing_2
+								option(value='', selected) NEXT MAP
+								option(value='Playing NOW') Playing NOW
+								option(value='Played') Played
+							label Peak status MAP
+						.input-field.col.s12
+							input.score_map_2.validate(placeholder='Score Map 2', type='text', name="score_map_2", value="- : -")
+							label(for='score_map_2') Score Map 2 - : -
+						.input-field.col.s12
+							select#team_5.icons
+								option(value=null) NONE
+								option(value='auto', selected) Select pick command
+							label Pick Team 2 Map
+						.input-field.col.s12
+							select#team_6.icons
+								option(value=null) NONE
+								option(value='auto', selected) No winner selected
+							label WIN Pick Team 2 Map
+						.input-field.col.s12
+							a.waves-effect.waves-light.btn-small#swap7 TEAM 1 PICK 2 MAP
+								i.material-icons task_alt
+							a.waves-effect.waves-light.btn-small#swap8 TEAM 2 PICK 2 MAP
+								i.material-icons task_alt
+							a.waves-effect.waves-light.btn#win3 TEAM 1 WIN 2 MAP
+								i.material-icons task_alt
+							a.waves-effect.waves-light.btn#win4 TEAM 2 WIN 2 MAP
+								i.material-icons task_alt
+				#Map3Card.col.s12.m4
+					.row
+						h5.nav DECIDER LIVE MAP PICK BO3
+						.input-field.col.s12
+							select.decider_map
+								option(value='', selected) NONE
+								option(value='DECIDER') DECIDER
+								option(value='ANUBIS') ANUBIS
+								option(value='INFERNO') INFERNO
+								option(value='MIRAGE') MIRAGE
+								option(value='OVERPASS') OVERPASS
+								option(value='NUKE') NUKE
+								option(value='ANCIENT') ANCIENT
+								option(value='VERTIGO') VERTIGO
+								option(value='DUST2') DUST2
+							label decider map bo3
+						.input-field.col.s12
+							select.playing_3
+								option(value='') NONE
+								option(value='DECIDER', selected) DECIDER
+								option(value='Playing NOW') Playing NOW
+							label Peak status MAP
+						.input-field.col.s12
+							input.score_map_3.validate(placeholder='Score Map 3', type='text', name="score_map_3", value="")
+							label(for='score_map_3') Score Map 3 - : -
+						.input-field.col.s12
+							a.waves-effect.waves-light.btn#swap2 Swap LOGO TEAM PICK map
+								i.material-icons swap_vert
+				#Map4Card.col.s12.m4
+					.row
+						h5.nav 3 LIVE MAP PICK
+						.input-field.col.s12
+							select.map_pick_4
+								option(value='', selected) NONE
+								option(value='DECIDER') DECIDER
+								option(value='ANUBIS') ANUBIS
+								option(value='INFERNO') INFERNO
+								option(value='MIRAGE') MIRAGE
+								option(value='OVERPASS') OVERPASS
+								option(value='NUKE') NUKE
+								option(value='ANCIENT') ANCIENT
+								option(value='VERTIGO') VERTIGO
+								option(value='DUST2') DUST2
+							label Map pick team
+						.input-field.col.s12
+							select.playing_4
+								option(value='', selected) NEXT MAP
+								option(value='Playing NOW') Playing NOW
+								option(value='Played') Played
+							label Peak status MAP
+						.input-field.col.s12
+							input.score_map_4.validate(placeholder='Score Map 4', type='text', name="score_map_4", value="- : -")
+							label(for='score_map_4') Score Map 3 - : -
+						.input-field.col.s12
+							select#team_7.icons
+								option(value=null) NONE
+								option(value='auto', selected) Select pick command
+							label Pick Team 3 Map
+						.input-field.col.s12
+							select#team_8.icons
+								option(value=null) NONE
+								option(value='auto', selected) No winner selected
+							label WIN Pick Team 3 Map
+						.input-field.col.s12
+							a.waves-effect.waves-light.btn-small#swap9 TEAM 1 PICK 3 MAP
+								i.material-icons task_alt
+							a.waves-effect.waves-light.btn-small#swap10 TEAM 2 PICK 3 MAP
+								i.material-icons task_alt
+							a.waves-effect.waves-light.btn#win5 TEAM 1 WIN 3 MAP
+								i.material-icons task_alt
+							a.waves-effect.waves-light.btn#win6 TEAM 2 WIN 3 MAP
+								i.material-icons task_alt
+				#Map5Card.col.s12.m4
+					.row
+						h5.nav 4 MAP PICK
+						.input-field.col.s12
+							select.map_pick_5
+								option(value='', selected) NONE
+								option(value='DECIDER') DECIDER
+								option(value='ANUBIS') ANUBIS
+								option(value='INFERNO') INFERNO
+								option(value='MIRAGE') MIRAGE
+								option(value='OVERPASS') OVERPASS
+								option(value='NUKE') NUKE
+								option(value='ANCIENT') ANCIENT
+								option(value='VERTIGO') VERTIGO
+								option(value='DUST2') DUST2
+							label Map pick team
+						.input-field.col.s12
+							select.playing_5
+								option(value='', selected) NEXT MAP
+								option(value='Playing NOW') Playing NOW
+								option(value='Played') Played
+							label Peak status MAP
+						.input-field.col.s12
+							input.score_map_5.validate(placeholder='Score Map 5', type='text', name="score_map_5", value="- : -")
+							label(for='score_map_5') Score Map 4 - : -
+						.input-field.col.s12
+							select#team_9.icons
+								option(value=null) NONE
+								option(value='auto', selected) Select pick command
+							label Pick Team 4 Map
+						.input-field.col.s12
+							select#team_10.icons
+								option(value=null) NONE
+								option(value='auto', selected) No winner selected
+							label WIN Pick Team 4 Map
+						.input-field.col.s12
+							a.waves-effect.waves-light.btn-small#swap11 TEAM 1 PICK 4 MAP
+								i.material-icons task_alt
+							a.waves-effect.waves-light.btn-small#swap12 TEAM 2 PICK 4 MAP
+								i.material-icons task_alt
+							a.waves-effect.waves-light.btn#win7 TEAM 1 WIN 4 MAP
+								i.material-icons task_alt
+							a.waves-effect.waves-light.btn#win8 TEAM 2 WIN 4 MAP
+								i.material-icons task_alt
+				#Map6Card.col.s12.m4
+					.row
+						h5.nav DECIDER LIVE MAP PICK BO5
+						.input-field.col.s12
+							select.decider_map2
+								option(value='', selected) NONE
+								option(value='DECIDER') DECIDER
+								option(value='ANUBIS') ANUBIS
+								option(value='INFERNO') INFERNO
+								option(value='MIRAGE') MIRAGE
+								option(value='OVERPASS') OVERPASS
+								option(value='NUKE') NUKE
+								option(value='ANCIENT') ANCIENT
+								option(value='VERTIGO') VERTIGO
+								option(value='DUST2') DUST2
+							label decider map bo5
+						.input-field.col.s12
+							select.playing_6
+								option(value='') NONE
+								option(value='DECIDER', selected) DECIDER
+								option(value='Playing NOW') Playing NOW
+							label Peak status MAP
+						.input-field.col.s12
+							input.score_map_6.validate(placeholder='Score Map 6', type='text', name="score_map_6", value="")
+							label(for='score_map_6') Score Map 5 - : -
+						.input-field.col.s12.m8
+							a.waves-effect.waves-light.btn#swap3 Swap LOGO TEAM PICK map
+								i.material-icons swap_vert
+		details.col.s12
+					summary.btn INFO THE EVENTS HEAD
+					.row
+						.input-field.col.s12
+							input#left_events.validate(placeholder='Left Events', type='text', name="Left Events")
+							label(for='left_events') Left Events
+					.row
+						.input-field.col.s12
+							input#right_events.validate(placeholder='Right Events', type='text', name="Right Events")
+							label(for='right_events') Right Events
+					.row
+						.input-field.col.s12
+							input#logo_champ.validate(placeholder='Logo Champ', type='text', name="Logo Champ")
+							label(for='logo_champ') Logo Champ
+		//- Hiding players by steamID64
+		//.col.s12
+			.col.s4.offset-s4
+				.card.small
+					.card-content
+						#ignoredSteamIDs
+						.input-field.col.s12
+								input#iSIDinput.validate(placeholder='Enter in SteamID64', type='text')
+								label SteamID64 to Hide
+								a.waves-effect.waves-light.btn#iSIDButton Hide Player
+								blockquote If you refresh your hud, you will need to refresh the panel page, and resubmit the SteamIDs 
+								//blockquote Если вы обновите свой HUD, вам придется обновить страницу панели и повторно отправить SteamID.
+						.chip-container
+		details.row 
+				summary.btn Vote of HUDS
+				table
+					thead
+						tr(style="font-size:35px;")
+							th Number
+							th MAP
+							th PICK | BAN
+							th Team
+							//th Status
+							th TEAM PICK|BAN
+					tbody(style="font-size:20px;")
+						tr
+							th Map 1
+							td
+								.switch
+									.input-field.col.s12
+										select.map_pick_20
+											option(value='', selected) NONE
+											option(value='DECIDER') DECIDER
+											option(value='ANUBIS') ANUBIS
+											option(value='INFERNO') INFERNO
+											option(value='MIRAGE') MIRAGE
+											option(value='OVERPASS') OVERPASS
+											option(value='NUKE') NUKE
+											option(value='ANCIENT') ANCIENT
+											option(value='VERTIGO') VERTIGO
+											option(value='DUST2') DUST2
+										label Map pick team
+							td
+								.switch
+									.input-field.col.s12
+										select.playing_20
+											option(value='', ) NONE
+											option(value='BAN', selected) BAN
+											option(value='PICK') PICK
+										label Peak status MAP
+							td
+								.switch
+										select#team_20.icons
+											option(value=null) NONE
+											option(value='auto', selected) Try to match team automatically
+										label Set team 1
+							//td
+								.switch
+									label
+										span(style="font-size:20px;")
+											| Off
+										input(type='checkbox' id="map1")
+										span.lever
+										span(style="font-size:20px;")
+											| On
+							td
+								.switch
+									.input-field.col.s12
+										a.waves-effect.waves-light.btn-small#swap20 TEAM 1
+											i.material-icons task_alt
+										a.waves-effect.waves-light.btn-small#swap21 TEAM 2
+											i.material-icons task_alt	
+						tr
+							th Map 2
+							td
+								.switch
+									.input-field.col.s12
+										select.map_pick_21
+											option(value='', selected) NONE
+											option(value='DECIDER') DECIDER
+											option(value='ANUBIS') ANUBIS
+											option(value='INFERNO') INFERNO
+											option(value='MIRAGE') MIRAGE
+											option(value='OVERPASS') OVERPASS
+											option(value='NUKE') NUKE
+											option(value='ANCIENT') ANCIENT
+											option(value='VERTIGO') VERTIGO
+											option(value='DUST2') DUST2
+										label Map pick team
+							td
+								.switch
+									.input-field.col.s12
+										select.playing_21
+											option(value='NONE', ) NONE
+											option(value='BAN', selected) BAN
+											option(value='PICK') PICK
+										label Peak status MAP
+							td
+								.switch
+										select#team_21.icons
+											option(value=null) NONE
+											option(value='auto', selected) Try to match team automatically
+										label Set team 1
+							//td
+								.switch
+									label
+										span(style="font-size:20px;")
+											| Off
+										input(type='checkbox' id="Map2")
+										span.lever
+										span(style="font-size:20px;")
+											| On
+							td
+								.switch
+									.input-field.col.s12
+										a.waves-effect.waves-light.btn-small#swap22 TEAM 1
+											i.material-icons task_alt
+										a.waves-effect.waves-light.btn-small#swap23 TEAM 2
+											i.material-icons task_alt
+						tr
+							th Map 3
+							td
+								.switch
+									.input-field.col.s12
+										select.map_pick_22
+											option(value='', selected) NONE
+											option(value='DECIDER') DECIDER
+											option(value='ANUBIS') ANUBIS
+											option(value='INFERNO') INFERNO
+											option(value='MIRAGE') MIRAGE
+											option(value='OVERPASS') OVERPASS
+											option(value='NUKE') NUKE
+											option(value='ANCIENT') ANCIENT
+											option(value='VERTIGO') VERTIGO
+											option(value='DUST2') DUST2
+										label Map pick team
+							td
+								.switch
+									.input-field.col.s12
+										select.playing_22
+											option(value='', ) NONE
+											option(value='BAN', ) BAN
+											option(value='PICK', selected) PICK
+										label Peak status MAP
+							td
+								.switch
+										select#team_22.icons
+											option(value=null) NONE
+											option(value='auto', selected) Try to match team automatically
+										label Set team 1
+							//td
+								.switch
+									label
+										span(style="font-size:20px;")
+											| Off
+										input(type='checkbox' id="Map3")
+										span.lever
+										span(style="font-size:20px;")
+											| On
+							td
+								.switch
+									.input-field.col.s12
+										a.waves-effect.waves-light.btn-small#swap24 TEAM 1
+											i.material-icons task_alt
+										a.waves-effect.waves-light.btn-small#swap25 TEAM 2
+											i.material-icons task_alt
+						tr
+							th Map 4
+							td
+								.switch
+									.input-field.col.s12
+										select.map_pick_23
+											option(value='', selected) NONE
+											option(value='DECIDER') DECIDER
+											option(value='ANUBIS') ANUBIS
+											option(value='INFERNO') INFERNO
+											option(value='MIRAGE') MIRAGE
+											option(value='OVERPASS') OVERPASS
+											option(value='NUKE') NUKE
+											option(value='ANCIENT') ANCIENT
+											option(value='VERTIGO') VERTIGO
+											option(value='DUST2') DUST2
+										label Map pick team
+							td
+								.switch
+									.input-field.col.s12
+										select.playing_23
+											option(value='', ) NONE
+											option(value='BAN', ) BAN
+											option(value='PICK', selected) PICK
+										label Peak status MAP
+							td
+								.switch
+										select#team_23.icons
+											option(value=null) NONE
+											option(value='auto', selected) Try to match team automatically
+										label Set team 1
+							//td
+								.switch
+									label
+										span(style="font-size:20px;")
+											| Off
+										input(type='checkbox' id="Map4")
+										span.lever
+										span(style="font-size:20px;")
+											| On
+							td
+								.switch
+									.input-field.col.s12
+										a.waves-effect.waves-light.btn-small#swap26 TEAM 1
+											i.material-icons task_alt
+										a.waves-effect.waves-light.btn-small#swap27 TEAM 2
+											i.material-icons task_alt
+						tr
+							th Map 5
+							td
+								.switch
+									.input-field.col.s12
+										select.map_pick_24
+											option(value='', selected) NONE
+											option(value='DECIDER') DECIDER
+											option(value='ANUBIS') ANUBIS
+											option(value='INFERNO') INFERNO
+											option(value='MIRAGE') MIRAGE
+											option(value='OVERPASS') OVERPASS
+											option(value='NUKE') NUKE
+											option(value='ANCIENT') ANCIENT
+											option(value='VERTIGO') VERTIGO
+											option(value='DUST2') DUST2
+										label Map pick team
+							td
+								.switch
+									.input-field.col.s12
+										select.playing_24
+											option(value='', selected) NONE
+											option(value='BAN', selected) BAN
+											option(value='PICK') PICK
+										label Peak status MAP
+							td
+								.switch
+										select#team_24.icons
+											option(value=null) NONE
+											option(value='auto', selected) Try to match team automatically
+										label Set team 1
+							//td
+								.switch
+									label
+										span(style="font-size:20px;")
+											| Off
+										input(type='checkbox' id="Map5")
+										span.lever
+										span(style="font-size:20px;")
+											| On
+							td
+								.switch
+									.input-field.col.s12
+										a.waves-effect.waves-light.btn-small#swap28 TEAM 1
+											i.material-icons task_alt
+										a.waves-effect.waves-light.btn-small#swap29 TEAM 2
+											i.material-icons task_alt
+						tr
+							th Map 6
+							td
+								.switch
+									.input-field.col.s12
+										select.map_pick_25
+											option(value='', selected) NONE
+											option(value='DECIDER') DECIDER
+											option(value='ANUBIS') ANUBIS
+											option(value='INFERNO') INFERNO
+											option(value='MIRAGE') MIRAGE
+											option(value='OVERPASS') OVERPASS
+											option(value='NUKE') NUKE
+											option(value='ANCIENT') ANCIENT
+											option(value='VERTIGO') VERTIGO
+											option(value='DUST2') DUST2
+										label Map pick team
+							td
+								.switch
+									.input-field.col.s12
+										select.playing_25
+											option(value='', selected) NONE
+											option(value='BAN', selected) BAN
+											option(value='PICK') PICK
+										label Peak status MAP
+							td
+								.switch
+										select#team_25.icons
+											option(value=null) NONE
+											option(value='auto', selected) Try to match team automatically
+										label Set team 1
+							//td
+								.switch
+									label
+										span(style="font-size:20px;")
+											| Off
+										input(type='checkbox' id="Map6")
+										span.lever
+										span(style="font-size:20px;")
+											| On
+							td
+								.switch
+									.input-field.col.s12
+										a.waves-effect.waves-light.btn-small#swap30 TEAM 1
+											i.material-icons task_alt
+										a.waves-effect.waves-light.btn-small#swap31 TEAM 2
+											i.material-icons task_alt
+						tr
+							th DECIDER
+							td
+								.switch
+									.input-field.col.s12
+										select.map_pick_26
+											option(value='', selected) NONE
+											option(value='DECIDER') DECIDER
+											option(value='ANUBIS') ANUBIS
+											option(value='INFERNO') INFERNO
+											option(value='MIRAGE') MIRAGE
+											option(value='OVERPASS') OVERPASS
+											option(value='NUKE') NUKE
+											option(value='ANCIENT') ANCIENT
+											option(value='VERTIGO') VERTIGO
+											option(value='DUST2') DUST2
+										label Map pick team
+							td
+								.switch
+									.input-field.col.s12
+										select.playing_26
+											option(value='', selected) NONE
+											option(value='DECIDER', selected) DECIDER
+										label Peak status MAP
+							//td
+								.switch
+										select#team_26.icons
+											option(value=null) NONE
+											option(value='auto', selected) Try to match team automatically
+										label Set team 1
+							//td
+								.switch
+									label
+										span(style="font-size:20px;")
+											| Off
+										input(type='checkbox' id="Map8")
+										span.lever
+										span(style="font-size:20px;")
+											| On
+		.input-field.col.s12
+			.row
+				#actionbuttons
+				a.waves-effect.waves-light.btn#set Set
+					i.material-icons done
+				a.waves-effect.waves-light.btn#swap Swap
+					i.material-icons swap_horiz
+				a.waves-effect.waves-light.btn#swap4 Swap LOGO TEAM PICK map
+					i.material-icons swap_vert
+				a.waves-effect.waves-light.btn#ref Refresh HUD
+					i.material-icons refresh
+				a.waves-effect.waves-light.btn#res Reset TEAM pick & WIN
+					i.material-icons restart_alt
+
+
+.logo
+a(href='https://www.twitch.tv/fyflo') Subscribe to my channel on Twitch: fyflo

@@ -1,0 +1,12 @@
+{
+    "name":"Komodo HUD",
+    "version":"1.0.0",
+    "author":"Komodo & 0sh10",
+    "legacy": true,
+    "radar": true,
+    "killfeed": true,
+    "boltobserv":{
+        "css":true,
+        "maps":true
+    }
+}

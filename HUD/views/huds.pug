@@ -1,0 +1,37 @@
+.row
+	table#huds.highlight.responsive-table
+		thead
+			tr
+				th HUD
+				th Name
+				th Delay Time
+				th URL
+				th Options
+				th Status
+		tbody
+			tr#hud
+				th default
+				td
+					input#name.validate(placeholder='Name for new instance', type='text')
+				td
+					.col.s10
+						input#delay.validate(placeholder='Delay in seconds', type='number', min=0)
+				td
+				td
+					a.waves-effect.waves-light.btn.add_hud Add instance
+				td#warnings
+					i.material-icons done_all
+			tr#instance
+				td
+				td
+					input#name.name.validate(placeholder='Name for new instance', type='text')
+				td
+					.col.s10
+						input#delay.delay.validate(placeholder='Delay in seconds', type='number', min=0)
+				td
+				td
+					a.waves-effect.waves-light.btn.delete_hud Delete
+				td#warnings
+					i.material-icons done
+
+a(href='https://www.twitch.tv/fyflo') Subscribe to my channel on Twitch: fyflo

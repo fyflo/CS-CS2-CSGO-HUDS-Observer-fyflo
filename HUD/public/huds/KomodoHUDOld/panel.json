@@ -1,0 +1,38 @@
+[
+    {
+        "label": "Panels",
+        "name":"panels",
+        "inputs": [
+            {
+                "type": "text",
+                "name": "left_title",
+                "label": "Left box's title"
+            },
+            {
+                "type": "text",
+                "name": "right_title",
+                "label": "Right box's title"
+            },
+            {
+                "type": "text",
+                "name": "left_subtitle",
+                "label": "Left box's subtitle"
+            },
+            {
+                "type": "text",
+                "name": "right_subtitle",
+                "label": "Right box's subtitle"
+            },
+            {
+                "type":"image",
+                "name":"left_image",
+                "label":"Left box's image logo"
+            },
+            {
+                "type":"image",
+                "name":"right_image",
+                "label":"Right box's image logo"
+            }
+        ]
+    }
+]

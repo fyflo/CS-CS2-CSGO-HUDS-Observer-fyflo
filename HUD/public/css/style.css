@@ -1,0 +1,63 @@
+#actionbuttons {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+}
+
+#set {
+  //display: flex;
+  //justify-content: center;
+  //flex: 0.5;
+  width: 20%;
+}
+#swap {
+  //display: flex;
+  //justify-content: center;
+  //flex: 0.5;
+  width: 20%;
+}
+#swap2 {
+  //display: flex;
+  //justify-content: center;
+  //flex: 0.5;
+  width: 100%;
+}
+#swap3 {
+  //display: flex;
+  //justify-content: center;
+  //flex: 0.5;
+  width: 155%;
+}
+#swap4 {
+  //display: flex;
+  //justify-content: center;
+  //flex: 0.5;
+  width: 20%;
+}
+#ref {
+  //display: flex;
+  //justify-content: center;
+  //flex: 0.5;
+  width: 20%;
+}
+#res {
+  //display: flex;
+  //justify-content: center;
+  //flex: 0.5;
+  width: 20%;
+}
+
+.card.small .card-content,
+.card.medium .card-content,
+.card.large .card-content {
+  overflow: visible;
+}
+
+#Map1Card,
+#Map2Card,
+#Map3Card,
+#Map4Card,
+#Map5Card,
+#Map6Card {
+  display: none;
+}
