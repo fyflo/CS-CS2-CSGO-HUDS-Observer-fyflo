@@ -377,7 +377,7 @@ function updatePage(data) {
 |phase|Team's score|```var phase = phase.phase;```|(String) freezetime/live/over/bomb/defuse/paused/timeout_t/timeout_ct|
 |phase_ends_in|Team's name|```var time = phase.phase_ends_in;//"8.9"```|(String) Time (seconds) with decimal|
 
-### Phase
+### VETO
 |Property|Description|Example|Values|
 |---|---|---|---|
 |teams.team_3.logo|LOGO team 1 Map Veto||(String) team 1|
