@@ -119,14 +119,12 @@ Basically, CS:GO/CS2 is streaming data to local app-server, that transforms data
 
 ## How to make it run?
 
-- Install NodeJS (nodejs.org)
+- Install NodeJS v20.18.0 (nodejs.org)
 - Download this repo somewhere
 ##
-- Start RUN_HUD.bat file and RUN_RADAR.bat if you want to include a third-party mini card
+- Start CS2_HUD_fyflo.exe
 ##
-- Start RUN_HUD.bat file if you want to keep the mini map from the game.
-##
-- Run Overlay Exe from here: [OVERLAY DOWNLOAD](https://drive.google.com/file/d/1_NoHJRfSVFF8yTp8hXabf9Du76mowhPD/view?usp=drive_link) or just go to your browser [http://localhost:2626](http://localhost:2626)
+- Run Overlay Exe from here: [OVERLAY DOWNLOAD](https://drive.google.com/file/d/1_NoHJRfSVFF8yTp8hXabf9Du76mowhPD/view?usp=drive_link) or just go to your browser [http://Your IP:2626](http://Your IP:2626)
 - Ensure that in the Overlay exe folder, there is a config.json file with the following:
 - Radar will be on :36364 port [http://localhost:36364](http://localhost:36364)
 
@@ -378,6 +376,16 @@ function updatePage(data) {
 |---|---|---|---|
 |phase|Team's score|```var phase = phase.phase;```|(String) freezetime/live/over/bomb/defuse/paused/timeout_t/timeout_ct|
 |phase_ends_in|Team's name|```var time = phase.phase_ends_in;//"8.9"```|(String) Time (seconds) with decimal|
+
+### Phase
+|Property|Description|Example|Values|
+|---|---|---|---|
+|teams.team_3.logo|LOGO team 1 Map Veto||(String) team 1|
+|teams.team_4.logo|LOGO team 2 Map Veto||(String) team 2|
+........
+|match.map.score_map_1|score 1 Map Veto||(int) 0-100|
+|match.map.score_map_2|score 2 Map Veto||(int) 0-100|
+........
 
 # API Requests to databases
 ### Player object example
