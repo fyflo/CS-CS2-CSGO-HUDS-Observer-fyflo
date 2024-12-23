@@ -25,8 +25,8 @@
 			},
 			// The radar offset in percentages to apply when player is in the split
 			"offset": {
-				"x": -30,
-				"y": -33
+				"x": 0,
+				"y": -46
 			},
 
 			// The minimum and maximum height a player can be within this split
