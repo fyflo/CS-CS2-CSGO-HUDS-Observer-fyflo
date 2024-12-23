@@ -1,0 +1,165 @@
+// ============================= MAIN CONFIG FILE =============================
+// It's possible to change values directly in this file, but by creating a file
+// called "config.override.json5" in the same directory you can override values
+// without making changes here. This makes your config a lot more portable.
+
+{
+	"_version": "1.5.1",
+
+	// Settings related to the Boltobserv window
+	"window": {
+		// Don't show radar in a window, only a small status window will open
+		"disable": false,
+
+		// Always show the window as the top application
+		"alwaysOnTop": false,
+
+		// Make the background of the window transparent
+		"transparent": false,
+
+		// Change the background color of the window with optional transparency
+		// The color should be in hexadecimal color code
+		// like #FFF or #FFFFFF to normal color and #80FFFFFF to color with transparency
+		"backgroundColor": "#000000",
+
+		// Start window as a full screen application
+		// Use ALT + F4 to quit
+		"fullscreen": false,
+
+		// Will disable GPU rendering, helps capture the window in programs like OBS
+		"disableGpu": false,
+
+		// Do not capture mouse events, allowing interaction with the window underneath
+		// Dragging or resizing the window will be disabled if this option is true
+		"mousePassthrough": false,
+
+		// The default shape and position of the window
+		"defaultSize": {
+			// The height and width in pixels
+			"height": 600,
+			"width": 600,
+
+			// The default distance from the top left of the screen
+			// Set to -1 to let the OS pick the best place
+			"top": -1,
+			"left": -1
+		}
+	},
+
+	// Settings related to remote browser access to the radar
+	"browser": {
+		// Prevents a background from being set in the browser, for OBS capture
+		"transparent": true,
+
+		"ports": {
+			// Serves static files, such as HTML. Use this one in your browser
+			"static": 36364,
+			// Dynamic websocket port, used for live data transport
+			"socket": 36365
+		}
+	},
+
+	// Settings that will change the way the radar is displayed
+	"radar": {
+		// Hide advisories on the radar
+		"hideAdvisories": true,
+		// When true, players higher on the map will show over lower ones
+		// If false, the player slot number determines the stacking order
+		// The spectated player is always visible on top of everything
+		"highestPlayerOnTop": true,
+		// Show the buyzones on the map, or only when players can buy
+		// Only works on SimpleRadar maps, can either be "never", "buytime" or "always"
+		"showBuyzones": "buytime",
+		// Show Boltobserv, Simple Radar and Lexogrine logos
+		"showLogos": true,
+
+		// Show the player name on the dot, options are:
+		// "never"  only show the spec number (observer slot)
+		// "both"   show the name of the player under the dot
+		// "always" replace the spec number by the player name
+		"showName": "never",
+		// Truncate the name of the player after this many characters
+		"maxNameLength": 8,
+
+		// Show muzzle flashes for players shooting
+		"shooting": true,
+		// Show red indicators on player dots when their health gets lower
+		"damage": true,
+		// Show flashed players in a lighter color
+		"flashes": true,
+		// Show flying projectiles on the map
+		"projectiles": true,
+
+		// Give active smokes the color of the team that threw it
+		"smokeColors": true,
+		// Show projectiles as very plain and clear letter combinations
+		"plainProjectiles": false,
+
+		// Frames to smooth out player movement
+		"playerSmoothing": 13,
+		// Frames to smooth out flying projectile movement
+		"projectileSmoothing": 5,
+		// Opacity between 0 and 1 of the dead player crosses, set to 0 to fully hide
+		"tombstoneOpacity": 0.4,
+
+		// Amount of scaling to apply to player dots on the radar
+		// Values above 1 might be blurry
+		"playerDotScale": 0.7,
+		// Same as the above, but for the bomb
+		"bombDotScale": 0.7
+	},
+
+	// Show a vertical indicator on every player dot, indicating how high the player is on the map
+	"vertIndicator": {
+		// Indicator type, can either be "none", "color" or "scale"
+		"type": "scale",
+
+		// RGB values for the color indicator, from lowest to highest
+		"colorRange": [[13, 255, 0], [255, 255, 255], [255, 0, 199]],
+		// Controls by how much dots should scale depending on height, works in combination with playerDotScale
+		// 0.5 halves the amount of scaling, 1 keeps it the default, 1.5 makes player dots scale more
+		"scaleDelta": 1
+	},
+
+	// Settings for automatically zooming in on alive players on the map
+	"autozoom": {
+		// Enable or disable autozoom
+		"enable": false,
+
+		// Frames to smooth out zoom movement
+		"smoothing": 32,
+
+		// Percentage of radar space to try to keep as padding between the outermost players and the edge of the radar
+		"padding": 0.3,
+
+		// Only apply autozoom if calculated zoom level would be at least this much
+		// In decimals, where 1.2 would mean 20% more zoomed in than the default radar
+		"minZoom": 1.3
+	},
+
+	// Settings related to the CSGO game
+	"game": {
+		// Seconds of inactivity before considering a connection to the game client as lost
+		// Set to -1 to never timeout
+		"connectionTimout": 90,
+
+		// The port GSI will try to connect to
+		"networkPort": 36363,
+
+		// Tries to detect the CSGO game on the machine and prompts to install the CFG file if it hasn't already
+		"installCfg": true,
+
+		// The hostname for the GSI server to listen on
+		"host": "0.0.0.0"
+	},
+
+	// Settings that should not be used in normal operation, but help to find issues
+	"debug": {
+		// Print the loaded config into the console
+		"printConfig": false,
+
+		// Don't open any electron window, just start the server
+		// Do NOT execute Boltobserv outside a terminal with this enabled, could become a zombie process
+		"terminalOnly": false
+	}
+}
