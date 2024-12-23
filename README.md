@@ -1,6 +1,6 @@
 # CS2-CSGO-HUDS-Observer-fyflo
 
-[MY DISCORD](https://discord.com/channels/392006529206976512/1315714438187323524)
+[MY DISCORD](https://discord.gg/a2whmHmv)
 
 ## Setting for monitors with resolutions greater than 1920 x 1080
 1. Go to the address: `CS2-CSGO-HUDS-Observer-fyflo-main\overlay` and adjust the resolution to yours in the `package.json` file ("width": `specify the width`, "height": `specify the height`).
