@@ -12,12 +12,6 @@ If autodirector does not work, then type in the console `spec_autodirector 1`
 
 ## FIX COUCH and NEW to the page CREATE MATCH
 + FIX COUCH [JohnTimmermann](https://github.com/JohnTimmermann)
-+ Added details so that MAP PICK does not interfere with BO 1 to the page CREATE MATCH
-<details><summary>Example</summary>
-
-![Ex1](https://i.imgur.com/9c2R9Vh.png)
-
-</details>
 
 # IMPORTANT
 
@@ -29,12 +23,6 @@ If autodirector does not work, then type in the console `spec_autodirector 1`
 ![Ex1](https://i.imgur.com/vazk1hm.jpeg)
 ![Ex2](https://i.imgur.com/f70vHyB.jpeg)
 - An example of how my HUD works [https://www.youtube.com/watch?v=liKSKBNt224](https://www.youtube.com/watch?v=liKSKBNt224)
-
-</details>
-
-<details><summary>HUDs assembled</summary>
-
-[https://imgur.com/a/hx55fuz](https://imgur.com/a/hx55fuz)
 
 </details>
 
@@ -97,7 +85,6 @@ Basically, CS:GO/CS2 is streaming data to local app-server, that transforms data
 ## How to make it run?
 
 - Install NodeJS v20.18.0 (nodejs.org)
-- Download this repo somewhere
 ##
 - Start CS2_HUD_fyflo.exe
 ##
