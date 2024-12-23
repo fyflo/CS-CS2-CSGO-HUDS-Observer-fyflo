@@ -1,6 +1,6 @@
 # CS2-CSGO-HUDS-Observer-fyflo
 
-[DISCORD](https://discord.com/channels/392006529206976512/1315714438187323524)
+[MY DISCORD](https://discord.com/channels/392006529206976512/1315714438187323524)
 
 ## Setting for monitors with resolutions greater than 1920 x 1080
 1. Go to the address: `CS2-CSGO-HUDS-Observer-fyflo-main\overlay` and adjust the resolution to yours in the `package.json` file ("width": `specify the width`, "height": `specify the height`).
@@ -9,16 +9,6 @@
 ## autodirector
 If autodirector does not work, then type in the console `spec_autodirector 1`
 
-## Application update
-+ Now the application has added the ability to manage teams through buttons in the sections: pick cards and winner cards.
-A section has also been added for working with HUD VOTE maps.
-
-<details><summary>Example</summary>
-
-![Ex1](https://i.imgur.com/d5aTrEG.png)
-![Ex2](https://i.imgur.com/eRsTkrZ.png)
-
-</details>
 
 ## FIX COUCH and NEW to the page CREATE MATCH
 + FIX COUCH [JohnTimmermann](https://github.com/JohnTimmermann)
@@ -28,21 +18,6 @@ A section has also been added for working with HUD VOTE maps.
 ![Ex1](https://i.imgur.com/9c2R9Vh.png)
 
 </details>
-
-## RUN_HUD and RUN_RADAR
-- If RUN_HUD and RUN_RADAR do not start, then download the archive and replace the [files.](https://drive.google.com/file/d/1yXAhl4kY60Tojo8oaQ7UOjq_LHR7GRVW/view?usp=sharing)
-
-Before adding a new package you need to delete the node_modules folder
-
-## NEW MAP CS2
-+ update Boltobserv v. 1.4
-
-## NEW Create match tab
-Update HUDS
-
-## NEW Create match tab
-+ Map PICK
-+ Match info
 
 # IMPORTANT
 
