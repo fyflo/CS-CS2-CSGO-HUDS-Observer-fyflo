@@ -11,7 +11,7 @@
 
 	// How many in-game units is the origin (0,0) of the map from the bottom left point of the radar
 	"offset": {
-		"x": 2510,
+		"x": 2720,
 		"y": 2440
 	},
 
