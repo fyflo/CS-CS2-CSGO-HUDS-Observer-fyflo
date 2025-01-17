@@ -1,5 +1,5 @@
 # CS2-CSGO-HUDS-Observer-fyflo
-тест
+
 [MY DISCORD](https://discord.gg/7BtSdAmTf8) We discuss, propose and try to implement together.
 
 ## Setting for monitors with resolutions greater than 1920 x 1080
