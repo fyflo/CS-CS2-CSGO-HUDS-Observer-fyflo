@@ -444,7 +444,6 @@ mirv_colors smokes [...] - Control smokes colors.
 mirv_colors teamid [...] - Control team id overhead colors.
 - [https://github.com/advancedfx/advancedfx/wiki/Source2%3Amirv_colors](https://github.com/advancedfx/advancedfx/wiki/Source2%3Amirv_colors)
 
-2.
 mirv_deathmsg colors ct <option> - Control CT color.
 mirv_deathmsg colors t <option> - Control T color.
 mirv_deathmsg colors border <option> - Control border color of local player.
