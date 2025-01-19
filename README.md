@@ -26,6 +26,23 @@ If autodirector does not work, then type in the console `spec_autodirector 1`
 ## Before starting change config.json if necessary
 
 # Examples
+
+<details><summary>HUD in assemblies</summary>
+	
+![Ex1](https://i.imgur.com/eqzDIfH.png)
+![Ex2](https://i.imgur.com/5QIZCwX.png)
+![Ex3](https://i.imgur.com/z2AFaKz.png)
+![Ex4](https://i.imgur.com/tVzXw3d.png)
+![Ex5](https://i.imgur.com/u6UD5Zw.png)
+![Ex6](https://i.imgur.com/p9711KW.png)
+![Ex7](https://i.imgur.com/GvJmDCZ.png)
+![Ex8](https://i.imgur.com/VBJNi8X.png)
+![Ex9](https://i.imgur.com/dZsbfaS.png)
+![Ex10](https://i.imgur.com/RtRvDwC.png)
+![Ex11](https://i.imgur.com/EWNe6Fc.png)
+![Ex12](https://i.imgur.com/YxQGLvF.png)
+![Ex13](https://i.imgur.com/fCzRmQO.png)
+
 <details><summary>MY HUD</summary>
 	
 ![Ex1](https://i.imgur.com/vazk1hm.jpeg)
