@@ -435,6 +435,23 @@ This project is Licensed under GPL-3. Any changesd to this project need to be ma
 
 The section above is not legal advice and is not legally binding. See the LICENSE file in the repository for the full license.
 
+## HLAE
+Now you can change color X-ray/smoke/killfeed/trails grenade
+Update HLAE
+mirv_colors glow [...] - Control glow colors.
+mirv_colors trails [...] - Control grenade trails colors.
+mirv_colors smokes [...] - Control smokes colors.
+mirv_colors teamid [...] - Control team id overhead colors.
+- [https://github.com/advancedfx/advancedfx/wiki/Source2%3Amirv_colors](https://github.com/advancedfx/advancedfx/wiki/Source2%3Amirv_colors)
+
+2.
+mirv_deathmsg colors ct <option> - Control CT color.
+mirv_deathmsg colors t <option> - Control T color.
+mirv_deathmsg colors border <option> - Control border color of local player.
+mirv_deathmsg colors background <option> - Control background color.
+mirv_deathmsg colors backgroundLocal <option> - Control background color of local player.
+- [https://github.com/advancedfx/advancedfx/wiki/Source2%3Amirv_deathmsg#colors](https://github.com/advancedfx/advancedfx/wiki/Source2%3Amirv_deathmsg#colors)
+
 ## My HUD
 
 On the issue of purchasing my HUD, you need to write to my mail. fyflostream@yandex.ru. Only for Russian Federation.
