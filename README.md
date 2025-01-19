@@ -43,11 +43,12 @@ If autodirector does not work, then type in the console `spec_autodirector 1`
 ![Ex12](https://i.imgur.com/YxQGLvF.png)
 ![Ex13](https://i.imgur.com/fCzRmQO.png)
 
+</details>
 
 <details><summary>MY HUD</summary>
 	
-![Ex1](https://i.imgur.com/vazk1hm.jpeg)
-![Ex2](https://i.imgur.com/f70vHyB.jpeg)
+![Ex14](https://i.imgur.com/vazk1hm.jpeg)
+![Ex15](https://i.imgur.com/f70vHyB.jpeg)
 - An example of how my HUD works [https://www.youtube.com/watch?v=liKSKBNt224](https://www.youtube.com/watch?v=liKSKBNt224)
 
 </details>
@@ -130,8 +131,8 @@ Basically, CS:GO/CS2 is streaming data to local app-server, that transforms data
 - In scene, click on plus button and add window capture and choose csgo.exe
 - Add browser and in url copy and paste your CS-GO/CS2 link
 - Add second browser and paste url for radar (it should look like this)
-![Ex5](https://i.imgur.com/TsxNBgP.png)
-![Ex6](https://i.imgur.com/aqxAHXH.png)
+![Ex16](https://i.imgur.com/TsxNBgP.png)
+![Ex17](https://i.imgur.com/aqxAHXH.png)
 
 ## Admin Panel
 
