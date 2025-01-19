@@ -43,6 +43,7 @@ If autodirector does not work, then type in the console `spec_autodirector 1`
 ![Ex12](https://i.imgur.com/YxQGLvF.png)
 ![Ex13](https://i.imgur.com/fCzRmQO.png)
 
+
 <details><summary>MY HUD</summary>
 	
 ![Ex1](https://i.imgur.com/vazk1hm.jpeg)
