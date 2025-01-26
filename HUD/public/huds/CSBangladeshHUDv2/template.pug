@@ -1,0 +1,621 @@
+html
+  head
+    script(src="/socket.io/socket.io.js")
+    script(src="http://code.jquery.com/jquery-2.1.4.min.js")
+    script.
+      var ip = "#{ip}",
+      port = "#{port}",
+      _print_player_data = #{print_player_data},
+      disp_avatars = #{display_avatars},
+      disp_player_avatars = #{display_player_avatars},
+      disp_team_flags = #{display_team_flags},
+      disp_player_flags = #{display_player_flags},
+      _left_image = "#{left_image}",
+      _left_primary = "#{left_primary}",
+      _left_secondary = "#{left_secondary}",
+      _right_image = "#{right_image}",
+      _right_primary = "#{right_primary}",
+      _right_secondary = "#{right_secondary}",
+      special_event = "#{special_event}",
+      delay = #{delay};
+    script(src="/js/main.js")
+    script(src=hud)
+    link(rel='stylesheet', href=css)
+    link(rel='stylesheet', href=anim)
+  body
+    section
+      #map1
+      #top_panel
+        #left_bar 
+        #right_bar
+        #left_team
+          #logo
+            img#team_logo
+          #best_of
+            .block1
+            .block2
+            .block3
+            .block4
+            .block5
+          #main TEAM NAME
+          #alert
+            #alert_img_left
+              img#team_logo
+            #alert_text
+              |ALERT TEXT
+            #alert_pole_right
+            #bomb_defuse
+              #icon
+                .kit
+        #center_section
+          #score_left 10
+          #score_right 10
+          #round_timer
+            #round_timer_text
+              |0:00
+          //-#round_number
+            |Round Number
+        #right_team
+          #logo
+            img#team_logo
+          #best_of
+            .block1
+            .block2
+            .block3
+            .block4
+            .block5
+          #main TEAM NAME
+          #alert
+            #alert_img_right
+              img#team_logo
+            #alert_text
+              |ALERT TEXT
+            #bomb_defuse
+              #icon
+                .kit
+              #kit_bar
+          #timers
+            #defuse_bar
+        #alert_middle_holder
+          #alert_middle
+            #alert_text_middle
+              |ALERT TEXT
+      
+      //- Radar Section WIP
+      #radar_container
+        #radar_title
+          #radar_main
+          #radar_second
+        #radar
+          //- Comment out this iframe to take out the radar.
+          iframe(width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://127.0.0.1:36364")
+     
+      //- Players alive section
+      #players_alive
+        #PA_title_container Players Alive
+        #PA_counter_countainer
+          #PA_left_team_counter 0
+          #PA_vs_counter VS
+          #PA_right_team_counter 0
+      //- End Players alive section
+
+      #observed
+        #obs_avatar
+          img#obs_img
+          #obs_team
+            img#obs_team_img
+        #obs_lane3
+          #obs_alias_text
+            |PLAYER ALIAS
+          #obs_hp_section
+            #obs_hpblock1
+              #obs_hpbar1
+            #obs_hpblock2
+              #obs_hpbar2
+            #obs_hpblock3
+              #obs_hpbar3
+            #obs_hpblock4
+              #obs_hpbar4
+          #obs_lane3_left_pole
+          #obs_left_section
+            #obs_health_section
+              #obs_health_img
+              #obs_health_text
+                |100
+            #obs_armor_section
+              #obs_armor_img
+              #obs_armor_text
+                |100
+          #obs_bomb_kit
+          #obs_round_kills
+            #obs_skull
+            #obs_round_kills_text
+          #obs_middle_section
+            #obs_kills
+              #obs_k
+              #obs_kills_text
+                |0
+            #obs_deaths
+              #obs_d
+              #obs_deaths_text
+                |0 
+          #obs_right_section
+            #obs_nades
+              #obs_nade1
+              #obs_nade2
+              #obs_nade3
+              #obs_nade4
+            //-#obs_bullets_section
+            #obs_ammo_section
+              #obs_clip
+                |150
+              #obs_reserve
+                |/300
+      #players_left
+        #box_section
+          //-#box_top
+            #box_img
+              img#box_image
+          //-#box_utility
+            .box_heading
+              #box_heading_text Utility Level
+              #box_heading_subtext - Poor
+            .box_grenades
+              .box_nade_1
+                #util_nade_1
+                #util_nade_1_count x0
+              .box_nade_2
+                #util_nade_2
+                #util_nade_2_count x0
+              .box_nade_3
+                #util_nade_3
+                #util_nade_3_count x0
+              .box_nade_4
+                #util_nade_4
+                #util_nade_4_count x0
+          #box_monetary
+            .box_equip_value
+              #team_logo_ct
+            .box_team_money
+              #money_text Team Money
+              #money_value $80000
+            .loss_bonus
+              .loss_boxes
+                .loss_4
+                .loss_3
+                .loss_2
+                .loss_1
+              #loss_text Loss Bonus
+              #loss_value $1900
+        #player_section
+          #player1
+            .player_main_holder
+              .player_slot_number 1
+              .player_section_top
+                .player_armor
+                  #player_armor_image
+                .player_health_bar
+                #player_health_img
+                .player_health
+                  #player_health_text 100
+                .player_weapon_primary
+                  img#player_weapon_primary_img
+              .player_section_bottom
+                .player_bomb_kit
+                  #player_bomb_kit_image
+                #player_stat
+                  #stat_kills
+                    #stat_k
+                    #player_stat_kills_text 99
+                  #stat_deaths
+                    #stat_d
+                    #player_stat_deaths_text 99
+                .player_alias
+                  #player_alias_text Player Name Here
+                .player_current_money
+                  #player_current_money_text $16000
+                .player_nades
+                  #player_nade1
+                  #player_nade2
+                  #player_nade3
+                  #player_nade4
+                .player_weapon_secondary
+                  img#player_weapon_secondary_img
+              .player_hindered
+                .flashed
+                  #flashed_level
+                .burning
+                  #burning_level
+              #player_spec_bar
+          #player2
+            .player_main_holder
+              .player_slot_number 1
+              .player_section_top
+                .player_armor
+                  #player_armor_image
+                .player_health_bar
+                #player_health_img
+                .player_health
+                  #player_health_text 100
+                .player_weapon_primary
+                  img#player_weapon_primary_img
+              .player_section_bottom
+                .player_bomb_kit
+                  #player_bomb_kit_image
+                #player_stat
+                  #stat_kills
+                    #stat_k
+                    #player_stat_kills_text 99
+                  #stat_deaths
+                    #stat_d
+                    #player_stat_deaths_text 99
+                .player_alias
+                  #player_alias_text Player Name Here
+                .player_current_money
+                  #player_current_money_text $16000
+                .player_nades
+                  #player_nade1
+                  #player_nade2
+                  #player_nade3
+                  #player_nade4
+                .player_weapon_secondary
+                  img#player_weapon_secondary_img
+              .player_hindered
+                .flashed
+                  #flashed_level
+                .burning
+                  #burning_level
+              #player_spec_bar
+          #player3
+            .player_main_holder
+              .player_slot_number 1
+              .player_section_top
+                .player_armor
+                  #player_armor_image
+                .player_health_bar
+                #player_health_img
+                .player_health
+                  #player_health_text 100
+                .player_weapon_primary
+                  img#player_weapon_primary_img
+              .player_section_bottom
+                .player_bomb_kit
+                  #player_bomb_kit_image
+                #player_stat
+                  #stat_kills
+                    #stat_k
+                    #player_stat_kills_text 99
+                  #stat_deaths
+                    #stat_d
+                    #player_stat_deaths_text 99
+                .player_alias
+                  #player_alias_text Player Name Here
+                .player_current_money
+                  #player_current_money_text $16000
+                .player_nades
+                  #player_nade1
+                  #player_nade2
+                  #player_nade3
+                  #player_nade4
+                .player_weapon_secondary
+                  img#player_weapon_secondary_img
+              .player_hindered
+                .flashed
+                  #flashed_level
+                .burning
+                  #burning_level
+              #player_spec_bar
+          #player4
+            .player_main_holder
+              .player_slot_number 1
+              .player_section_top
+                .player_armor
+                  #player_armor_image
+                .player_health_bar
+                #player_health_img
+                .player_health
+                  #player_health_text 100
+                .player_weapon_primary
+                  img#player_weapon_primary_img
+              .player_section_bottom
+                .player_bomb_kit
+                  #player_bomb_kit_image
+                #player_stat
+                  #stat_kills
+                    #stat_k
+                    #player_stat_kills_text 99
+                  #stat_deaths
+                    #stat_d
+                    #player_stat_deaths_text 99
+                .player_alias
+                  #player_alias_text Player Name Here
+                .player_current_money
+                  #player_current_money_text $16000
+                .player_nades
+                  #player_nade1
+                  #player_nade2
+                  #player_nade3
+                  #player_nade4
+                .player_weapon_secondary
+                  img#player_weapon_secondary_img
+              .player_hindered
+                .flashed
+                  #flashed_level
+                .burning
+                  #burning_level
+              #player_spec_bar
+          #player5
+            .player_main_holder
+              .player_slot_number 1
+              .player_section_top
+                .player_armor
+                  #player_armor_image
+                .player_health_bar
+                #player_health_img
+                .player_health
+                  #player_health_text 100
+                .player_weapon_primary
+                  img#player_weapon_primary_img
+              .player_section_bottom
+                .player_bomb_kit
+                  #player_bomb_kit_image
+                #player_stat
+                  #stat_kills
+                    #stat_k
+                    #player_stat_kills_text 99
+                  #stat_deaths
+                    #stat_d
+                    #player_stat_deaths_text 99
+                .player_alias
+                  #player_alias_text Player Name Here
+                .player_current_money
+                  #player_current_money_text $16000
+                .player_nades
+                  #player_nade1
+                  #player_nade2
+                  #player_nade3
+                  #player_nade4
+                .player_weapon_secondary
+                  img#player_weapon_secondary_img
+              .player_hindered
+                .flashed
+                  #flashed_level
+                .burning
+                  #burning_level
+              #player_spec_bar
+
+      #players_right
+        #box_section
+          //-#box_top
+            #box_img
+              img#box_image
+            #box_main
+              #main_primary
+              #main_secondary
+          //-#box_utility
+            .box_heading
+              #box_heading_text Utility Level
+              #box_heading_subtext - Poor
+            .box_grenades
+              .box_nade_1
+                #util_nade_1
+                #util_nade_1_count x0
+              .box_nade_2
+                #util_nade_2
+                #util_nade_2_count x0
+              .box_nade_3
+                #util_nade_3
+                #util_nade_3_count x0
+              .box_nade_4
+                #util_nade_4
+                #util_nade_4_count x0
+          #box_monetary
+            .box_equip_value
+              #team_logo_t
+            .box_team_money
+              #money_text Team Money
+              #money_value $80000
+            .loss_bonus
+              .loss_boxes
+                .loss_4
+                .loss_3
+                .loss_2
+                .loss_1
+              #loss_text Loss Bonus
+              #loss_value $1900
+        #player_section
+          #player1
+            .player_main_holder
+              .player_slot_number 1
+              .player_section_top
+                .player_armor
+                  #player_armor_image
+                .player_health_bar
+                #player_health_img
+                .player_health
+                  #player_health_text 100
+                .player_weapon_primary
+                  img#player_weapon_primary_img
+              .player_section_bottom
+                .player_bomb_kit
+                  #player_bomb_kit_image
+                #player_stat
+                  #stat_kills
+                    #stat_k
+                    #player_stat_kills_text 99
+                  #stat_deaths
+                    #stat_d
+                    #player_stat_deaths_text 99
+                .player_alias
+                  #player_alias_text Player Name Here
+                .player_current_money
+                  #player_current_money_text $16000
+                .player_nades
+                  #player_nade1
+                  #player_nade2
+                  #player_nade3
+                  #player_nade4
+                .player_weapon_secondary
+                  img#player_weapon_secondary_img
+              .player_hindered
+                .flashed
+                  #flashed_level
+                .burning
+                  #burning_level
+              #player_spec_bar
+          #player2
+            .player_main_holder
+              .player_slot_number 1
+              .player_section_top
+                .player_armor
+                  #player_armor_image
+                .player_health_bar
+                #player_health_img
+                .player_health
+                  #player_health_text 100
+                .player_weapon_primary
+                  img#player_weapon_primary_img
+              .player_section_bottom
+                .player_bomb_kit
+                  #player_bomb_kit_image
+                #player_stat
+                  #stat_kills
+                    #stat_k
+                    #player_stat_kills_text 99
+                  #stat_deaths
+                    #stat_d
+                    #player_stat_deaths_text 99
+                .player_alias
+                  #player_alias_text Player Name Here
+                .player_current_money
+                  #player_current_money_text $16000
+                .player_nades
+                  #player_nade1
+                  #player_nade2
+                  #player_nade3
+                  #player_nade4
+                .player_weapon_secondary
+                  img#player_weapon_secondary_img
+              .player_hindered
+                .flashed
+                  #flashed_level
+                .burning
+                  #burning_level
+              #player_spec_bar
+          #player3
+            .player_main_holder
+              .player_slot_number 1
+              .player_section_top
+                .player_armor
+                  #player_armor_image
+                .player_health_bar
+                #player_health_img
+                .player_health
+                  #player_health_text 100
+                .player_weapon_primary
+                  img#player_weapon_primary_img
+              .player_section_bottom
+                .player_bomb_kit
+                  #player_bomb_kit_image
+                #player_stat
+                  #stat_kills
+                    #stat_k
+                    #player_stat_kills_text 99
+                  #stat_deaths
+                    #stat_d
+                    #player_stat_deaths_text 99
+                .player_alias
+                  #player_alias_text Player Name Here
+                .player_current_money
+                  #player_current_money_text $16000
+                .player_nades
+                  #player_nade1
+                  #player_nade2
+                  #player_nade3
+                  #player_nade4
+                .player_weapon_secondary
+                  img#player_weapon_secondary_img
+              .player_hindered
+                .flashed
+                  #flashed_level
+                .burning
+                  #burning_level
+              #player_spec_bar
+          #player4
+            .player_main_holder
+              .player_slot_number 1
+              .player_section_top
+                .player_armor
+                  #player_armor_image
+                .player_health_bar
+                #player_health_img
+                .player_health
+                  #player_health_text 100
+                .player_weapon_primary
+                  img#player_weapon_primary_img
+              .player_section_bottom
+                .player_bomb_kit
+                  #player_bomb_kit_image
+                #player_stat
+                  #stat_kills
+                    #stat_k
+                    #player_stat_kills_text 99
+                  #stat_deaths
+                    #stat_d
+                    #player_stat_deaths_text 99
+                .player_alias
+                  #player_alias_text Player Name Here
+                .player_current_money
+                  #player_current_money_text $16000
+                .player_nades
+                  #player_nade1
+                  #player_nade2
+                  #player_nade3
+                  #player_nade4
+                .player_weapon_secondary
+                  img#player_weapon_secondary_img
+              .player_hindered
+                .flashed
+                  #flashed_level
+                .burning
+                  #burning_level
+              #player_spec_bar
+          #player5
+            .player_main_holder
+              .player_slot_number 1
+              .player_section_top
+                .player_armor
+                  #player_armor_image
+                .player_health_bar
+                #player_health_img
+                .player_health
+                  #player_health_text 100
+                .player_weapon_primary
+                  img#player_weapon_primary_img
+              .player_section_bottom
+                .player_bomb_kit
+                  #player_bomb_kit_image
+                #player_stat
+                  #stat_kills
+                    #stat_k
+                    #player_stat_kills_text 99
+                  #stat_deaths
+                    #stat_d
+                    #player_stat_deaths_text 99
+                .player_alias
+                  #player_alias_text Player Name Here
+                .player_current_money
+                  #player_current_money_text $16000
+                .player_nades
+                  #player_nade1
+                  #player_nade2
+                  #player_nade3
+                  #player_nade4
+                .player_weapon_secondary
+                  img#player_weapon_secondary_img
+              .player_hindered
+                .flashed
+                  #flashed_level
+                .burning
+                  #burning_level
+            #player_spec_bar
