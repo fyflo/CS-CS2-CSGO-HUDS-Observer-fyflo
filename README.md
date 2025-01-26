@@ -42,6 +42,7 @@ If autodirector does not work, then type in the console `spec_autodirector 1`
 ![Ex11](https://i.imgur.com/EWNe6Fc.png)
 ![Ex12](https://i.imgur.com/YxQGLvF.png)
 ![Ex13](https://i.imgur.com/fCzRmQO.png)
+![Ex14](https://i.imgur.com/CMVGMUb.jpeg)
 
 </details>
 
