@@ -7,7 +7,7 @@ function loadMatch(data) {
     $teamList.html(
       "<option value=null>NONE</option><option value='auto' selected>Try to match team automatically</option>"
     );
-    teams.sort();
+    teams.sort((a, b) => a.team_name.localeCompare(b.team_name)); // Сортировка по имени команды
     teams.forEach(function (team, id) {
       let $option = $(
         "<option value='" +

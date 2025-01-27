@@ -1,21 +1,29 @@
-$(document).ready(function() {
+$(document).ready(function () {
   let id = null;
 
   listPlayers();
 
-  loadTeams(function(teams) {
+  loadTeams(function (teams) {
     $teamList = $("#teams_list");
     $teamList.html("<option value='default'>No team</option>");
 
-    teams.forEach(function(team, id) {
-      let $option = $("<option value='" + team._id + "'>" + team.team_name + " (" + team.short_name + ")</option>");
+    teams.forEach(function (team, id) {
+      let $option = $(
+        "<option value='" +
+          team._id +
+          "'>" +
+          team.team_name +
+          " (" +
+          team.short_name +
+          ")</option>"
+      );
       $("#teams_list").append($option);
     }, this);
 
     $("#teams_list").formSelect();
   });
 
-  $("#players").change(function() {
+  $("#players").change(function () {
     let i = $(this).val();
     loadPlayer(playersOverall[i]);
 
@@ -23,7 +31,7 @@ $(document).ready(function() {
 
     $("#country").formSelect();
   });
-  $("#save_player").click(function() {
+  $("#save_player").click(function () {
     let form = $("form")[1];
     let form_data = new FormData(form);
 
@@ -42,10 +50,10 @@ $(document).ready(function() {
       updatePlayer(form_data, id);
     }
   });
-  $("#delete_player").click(function() {
+  $("#delete_player").click(function () {
     deletePlayer(id);
   });
-  $("#delete_avatar").click(function() {
+  $("#delete_avatar").click(function () {
     deleteAvatar(id);
   });
 });
