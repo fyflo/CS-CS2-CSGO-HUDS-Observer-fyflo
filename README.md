@@ -6,9 +6,13 @@
 1. [OVERLAY 2k](https://drive.google.com/file/d/1MpVZwhrmr0-cL3VijTfKtBwfLF5ZAQJv/view?usp=drive_link)
 2. [OVERLAY hd](https://drive.google.com/file/d/1gl0UTRwlGgCVBF9gDOQe3gT7aMM_apO-/view?usp=sharing)
 
+## If animation does not work for you
+
 Start the file overlay_v2.exe
 
+Step 1: Open the Start menu and click the gear icon to open Settings. Alternatively, you can press Win + I key to quickly launch the Settings app.
 
+Step 2: Navigate to the Accessibility > Visual effects option, and toggle the button to On (default) or Off to turn on or off Animation effects.
 
 ## Setting for monitors with resolutions greater than 1920 x 1080
 1. Go to the address: `CS2-CSGO-HUDS-Observer-fyflo-main\overlay` and adjust the resolution to yours in the `package.json` file ("width": `specify the width`, "height": `specify the height`).
