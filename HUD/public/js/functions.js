@@ -61,24 +61,37 @@ function updateTeam(team, teamId) {
 function listTeams(defaultTeam) {
   loadTeams(function (teams) {
     $teamList = $("#teams");
-    $teamList.html("<option value='default'>New team</option>");
+    $teamList.html(
+      "<option value=null>NONE</option><option value='auto' selected>Try to match team automatically</option>"
+    );
 
-    teams.forEach(function (team, id) {
+    // Создаем массив с индексами для сохранения оригинальных ID
+    let indexedTeams = teams.map((team, index) => ({
+      ...team,
+      originalId: index,
+    }));
+
+    // Сортируем копию массива, сохраняя оригинальные ID
+    indexedTeams.sort((a, b) => a.team_name.localeCompare(b.team_name));
+
+    // Используем originalId как value для option
+    indexedTeams.forEach(function (team) {
       let $option = $(
         "<option value='" +
-          id +
+          team.originalId + // Используем оригинальный ID
           "'>" +
           team.team_name +
           " (" +
           team.short_name +
           ")</option>"
       );
-      if (defaultTeam && defaultTeam == team._id)
-        $option.prop("selected", "selected");
-      $("#teams").append($option);
+      if (team.logo) {
+        $option.attr("data-icon", "/storage/" + team.logo);
+      }
+      $teamList.append($option);
     }, this);
 
-    $("#teams").formSelect();
+    $teamList.formSelect();
   });
 }
 
