@@ -61,37 +61,36 @@ function updateTeam(team, teamId) {
 function listTeams(defaultTeam) {
   loadTeams(function (teams) {
     $teamList = $("#teams");
-    $teamList.html(
-      "<option value=null>NONE</option><option value='auto' selected>Try to match team automatically</option>"
-    );
+    $teamList.html("<option value='default'>New team</option>");
 
-    // Создаем массив с индексами для сохранения оригинальных ID
-    let indexedTeams = teams.map((team, index) => ({
-      ...team,
-      originalId: index,
+    // Создаем массив объектов с id и данными команды
+    let sortedTeams = teams.map((team, id) => ({
+      id: id,
+      team: team,
     }));
 
-    // Сортируем копию массива, сохраняя оригинальные ID
-    indexedTeams.sort((a, b) => a.team_name.localeCompare(b.team_name));
+    // Сортируем по названию команды
+    sortedTeams.sort((a, b) =>
+      a.team.team_name.localeCompare(b.team.team_name)
+    );
 
-    // Используем originalId как value для option
-    indexedTeams.forEach(function (team) {
+    // Создаем опции в отсортированном порядке
+    sortedTeams.forEach(function (item) {
       let $option = $(
         "<option value='" +
-          team.originalId + // Используем оригинальный ID
+          item.id +
           "'>" +
-          team.team_name +
+          item.team.team_name +
           " (" +
-          team.short_name +
+          item.team.short_name +
           ")</option>"
       );
-      /*if (team.logo) {
-        $option.attr("data-icon", "/storage/" + team.logo);
-      }*/
-      $teamList.append($option);
-    }, this);
+      if (defaultTeam && defaultTeam == item.team._id)
+        $option.prop("selected", "selected");
+      $("#teams").append($option);
+    });
 
-    $teamList.formSelect();
+    $("#teams").formSelect();
   });
 }
 
