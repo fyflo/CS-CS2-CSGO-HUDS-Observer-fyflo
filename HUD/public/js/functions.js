@@ -85,9 +85,9 @@ function listTeams(defaultTeam) {
           team.short_name +
           ")</option>"
       );
-      if (team.logo) {
+      /*if (team.logo) {
         $option.attr("data-icon", "/storage/" + team.logo);
-      }
+      }*/
       $teamList.append($option);
     }, this);
 
