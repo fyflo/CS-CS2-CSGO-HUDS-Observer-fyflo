@@ -1,4 +1,15 @@
 var io = io("http://" + ip + ":" + port + "/");
+document.addEventListener("DOMContentLoaded", function () {
+  var elems = document.querySelectorAll(".modal");
+  var instances = M.Modal.init(elems, {
+    dismissible: true,
+    opacity: 0.5,
+    inDuration: 250,
+    outDuration: 250,
+    startingTop: "4%",
+    endingTop: "10%",
+  });
+});
 function loadMatch(data) {
   loadTeams((teams) => {
     $teamList = $(
@@ -7,23 +18,35 @@ function loadMatch(data) {
     $teamList.html(
       "<option value=null>NONE</option><option value='auto' selected>Try to match team automatically</option>"
     );
-    teams.sort((a, b) => a.team_name.localeCompare(b.team_name)); // Сортировка по имени команды
-    teams.forEach(function (team, id) {
+
+    // Создаем массив с индексами для сохранения оригинальных ID
+    let indexedTeams = teams.map((team, index) => ({
+      ...team,
+      originalId: index,
+    }));
+
+    // Сортируем копию массива, сохраняя оригинальные ID
+    indexedTeams.sort((a, b) => a.team_name.localeCompare(b.team_name));
+
+    // Используем originalId как value для option
+    indexedTeams.forEach(function (team) {
       let $option = $(
         "<option value='" +
-          team._id +
+          team._id + // Используем _id вместо originalId
           "'>" +
           team.team_name +
           " (" +
           team.short_name +
           ")</option>"
       );
+
       if (team.logo) {
         $option.attr("data-icon", "/storage/" + team.logo);
       }
       $teamList.append($option);
     }, this);
     if (data) {
+      console.log(data.originalId);
       $("#botype").val(data.match);
       $("#team_1_coach").val("").val(data.team_1.coach);
       $("#team_2_coach").val("").val(data.team_2.coach);
@@ -153,137 +176,6 @@ $(document).ready(() => {
     toggleMapCards(selectedBotype);
   });
 
-  $(".switch")
-    .find("input[type='checkbox'][id$='map1']")
-    .on("change", function () {
-      var status = $(this).prop("checked");
-      let match = {
-        match: $("#botype").val(),
-        team_1: {
-          map_score: $("#team_1_score").val(),
-          team: $("#team_1").val(),
-          coach: $("#team_1_coach").val(),
-        },
-        team_2: {
-          map_score: $("#team_2_score").val(),
-          team: $("#team_2").val(),
-          coach: $("#team_2_coach").val(),
-        },
-        map: {
-          coach: $("#team_1_coach").val(),
-          coach: $("#team_2_coach").val(),
-          online_map: $("#online_map").val(),
-          team_pick_map: $("#team_pick_map").val(),
-          map_pick_1: $(".map_pick_1").val(),
-          team_1_pick: $(".team_1_pick").val(),
-          score_map_1: $(".score_map_1").val(),
-          win_map_1: $(".win_map_1").val(),
-          playing_1: $(".playing_1").val(),
-          map_pick_2: $(".map_pick_2").val(),
-          team_2_pick: $(".team_2_pick").val(),
-          score_map_2: $(".score_map_2").val(),
-          playing_2: $(".playing_2").val(),
-          win_map_2: $(".win_map_2").val(),
-          map_pick_4: $(".map_pick_4").val(),
-          team_4_pick: $(".team_4_pick").val(),
-          score_map_4: $(".score_map_4").val(),
-          playing_4: $(".playing_4").val(),
-          win_map_4: $(".win_map_4").val(),
-          map_pick_5: $(".map_pick_5").val(),
-          team_5_pick: $(".team_5_pick").val(),
-          score_map_5: $(".score_map_5").val(),
-          playing_5: $(".playing_5").val(),
-          win_map_5: $(".win_map_5").val(),
-          decider_map: $(".decider_map").val(),
-          score_map_3: $(".score_map_3").val(),
-          win_map_3: $(".win_map_3").val(),
-          playing_3: $(".playing_3").val(),
-          decider_map2: $(".decider_map2").val(),
-          score_map_6: $(".score_map_6").val(),
-          win_map_6: $(".win_map_6").val(),
-          playing_6: $(".playing_6").val(),
-          left_events: $("#left_events").val(),
-          right_events: $("#right_events").val(),
-          pick_map_team1: $("#pick_map_team1").val(),
-          pick_map_team2: $("#pick_map_team2").val(),
-          pick_map_team4: $("#pick_map_team4").val(),
-          pick_map_team5: $("#pick_map_team5").val(),
-          decider: $("#decider").val(),
-          decider2: $("#decider2").val(),
-          logo_champ: $("#logo_champ").val(),
-          //- vote -//
-          map_pick_20: $(".map_pick_20").val(),
-          map_pick_21: $(".map_pick_21").val(),
-          map_pick_22: $(".map_pick_22").val(),
-          map_pick_23: $(".map_pick_23").val(),
-          map_pick_24: $(".map_pick_24").val(),
-          map_pick_25: $(".map_pick_25").val(),
-          map_pick_26: $(".map_pick_26").val(),
-          map_pick_27: $(".map_pick_27").val(),
-          map_pick_28: $(".map_pick_28").val(),
-
-          playing_20: $(".playing_20").val(),
-          playing_21: $(".playing_21").val(),
-        },
-        team_3: {
-          team: $("#team_3").val(),
-        },
-        team_4: {
-          team: $("#team_4").val(),
-        },
-        team_5: {
-          team: $("#team_5").val(),
-        },
-        team_6: {
-          team: $("#team_6").val(),
-        },
-        team_7: {
-          team: $("#team_7").val(),
-        },
-        team_8: {
-          team: $("#team_8").val(),
-        },
-        team_9: {
-          team: $("#team_9").val(),
-        },
-        team_10: {
-          team: $("#team_10").val(),
-        },
-        team_11: {
-          team: $("#team_11").val(),
-        },
-        team_12: {
-          team: $("#team_12").val(),
-        },
-        team_20: {
-          team: $("#team_20").val(),
-        },
-        team_21: {
-          team: $("#team_21").val(),
-        },
-        team_22: {
-          team: $("#team_22").val(),
-        },
-        team_23: {
-          team: $("#team_23").val(),
-        },
-        team_24: {
-          team: $("#team_24").val(),
-        },
-        team_25: {
-          team: $("#team_25").val(),
-        },
-        team_26: {
-          team: $("#team_26").val(),
-        },
-        team_27: {
-          team: $("#team_27").val(),
-        },
-      };
-      io.emit("update_match", match);
-      io.emit("toggleMap1", status);
-      console.log("Panel.js Connected to io");
-    });
   /*
   // Initial toggle based on default botype value
   toggleMapCards($("#botype").val());
@@ -298,6 +190,140 @@ $(document).ready(() => {
   });
 */
   $("#set").click(() => {
+    let match = {
+      match: $("#botype").val(),
+      team_1: {
+        map_score: $("#team_1_score").val(),
+        team: $("#team_1 option:selected").attr("value"), // Получаем _id выбранной команды
+        coach: $("#team_1_coach").val(),
+      },
+      team_2: {
+        map_score: $("#team_2_score").val(),
+        team: $("#team_2 option:selected").attr("value"), // Получаем _id выбранной команды
+        coach: $("#team_2_coach").val(),
+      },
+      map: {
+        coach: $("#team_1_coach").val(),
+        coach: $("#team_2_coach").val(),
+        online_map: $("#online_map").val(),
+        team_pick_map: $("#team_pick_map").val(),
+        map_pick_1: $(".map_pick_1").val(),
+        team_1_pick: $(".team_1_pick").val(),
+        score_map_1: $(".score_map_1").val(),
+        win_map_1: $(".win_map_1").val(),
+        playing_1: $(".playing_1").val(),
+        map_pick_2: $(".map_pick_2").val(),
+        team_2_pick: $(".team_2_pick").val(),
+        score_map_2: $(".score_map_2").val(),
+        playing_2: $(".playing_2").val(),
+        win_map_2: $(".win_map_2").val(),
+        map_pick_4: $(".map_pick_4").val(),
+        team_4_pick: $(".team_4_pick").val(),
+        score_map_4: $(".score_map_4").val(),
+        playing_4: $(".playing_4").val(),
+        win_map_4: $(".win_map_4").val(),
+        map_pick_5: $(".map_pick_5").val(),
+        team_5_pick: $(".team_5_pick").val(),
+        score_map_5: $(".score_map_5").val(),
+        playing_5: $(".playing_5").val(),
+        win_map_5: $(".win_map_5").val(),
+        decider_map: $(".decider_map").val(),
+        score_map_3: $(".score_map_3").val(),
+        win_map_3: $(".win_map_3").val(),
+        playing_3: $(".playing_3").val(),
+        decider_map2: $(".decider_map2").val(),
+        score_map_6: $(".score_map_6").val(),
+        win_map_6: $(".win_map_6").val(),
+        playing_6: $(".playing_6").val(),
+        left_events: $("#left_events").val(),
+        right_events: $("#right_events").val(),
+        pick_map_team1: $("#pick_map_team1").val(),
+        pick_map_team2: $("#pick_map_team2").val(),
+        pick_map_team4: $("#pick_map_team4").val(),
+        pick_map_team5: $("#pick_map_team5").val(),
+        decider: $("#decider").val(),
+        decider2: $("#decider2").val(),
+        logo_champ: $("#logo_champ").val(),
+        //- vote -//
+        map_pick_20: $(".map_pick_20").val(),
+        map_pick_21: $(".map_pick_21").val(),
+        map_pick_22: $(".map_pick_22").val(),
+        map_pick_23: $(".map_pick_23").val(),
+        map_pick_24: $(".map_pick_24").val(),
+        map_pick_25: $(".map_pick_25").val(),
+        map_pick_26: $(".map_pick_26").val(),
+        map_pick_27: $(".map_pick_27").val(),
+        map_pick_28: $(".map_pick_28").val(),
+
+        playing_20: $(".playing_20").val(),
+        playing_21: $(".playing_21").val(),
+        playing_22: $(".playing_22").val(),
+        playing_23: $(".playing_23").val(),
+        playing_24: $(".playing_24").val(),
+        playing_25: $(".playing_25").val(),
+        playing_26: $(".playing_26").val(),
+        playing_27: $(".playing_27").val(),
+      },
+      team_3: {
+        team: $("#team_3").val(),
+      },
+      team_4: {
+        team: $("#team_4").val(),
+      },
+      team_5: {
+        team: $("#team_5").val(),
+      },
+      team_6: {
+        team: $("#team_6").val(),
+      },
+      team_7: {
+        team: $("#team_7").val(),
+      },
+      team_8: {
+        team: $("#team_8").val(),
+      },
+      team_9: {
+        team: $("#team_9").val(),
+      },
+      team_10: {
+        team: $("#team_10").val(),
+      },
+      team_11: {
+        team: $("#team_11").val(),
+      },
+      team_12: {
+        team: $("#team_12").val(),
+      },
+      team_20: {
+        team: $("#team_20").val(),
+      },
+      team_21: {
+        team: $("#team_21").val(),
+      },
+      team_22: {
+        team: $("#team_22").val(),
+      },
+      team_23: {
+        team: $("#team_23").val(),
+      },
+      team_24: {
+        team: $("#team_24").val(),
+      },
+      team_25: {
+        team: $("#team_25").val(),
+      },
+      team_26: {
+        team: $("#team_26").val(),
+      },
+      team_27: {
+        team: $("#team_27").val(),
+      },
+    };
+    io.emit("update_match", match);
+    console.log("Panel.js Connected to io");
+  });
+  $("#set2").click(() => {
+    // Создаем отдельное событие для set2
     let match = {
       match: $("#botype").val(),
       team_1: {
@@ -428,9 +454,10 @@ $(document).ready(() => {
       },
     };
     io.emit("update_match", match);
-    console.log("Panel.js Connected to io");
+    console.log("Panel.js: Set2 button clicked");
   });
-  $("#set2").click(() => {
+  $("#set3").click(() => {
+    // Создаем отдельное событие для set2
     let match = {
       match: $("#botype").val(),
       team_1: {
@@ -485,8 +512,25 @@ $(document).ready(() => {
         decider: $("#decider").val(),
         decider2: $("#decider2").val(),
         logo_champ: $("#logo_champ").val(),
+        //- vote -//
         map_pick_20: $(".map_pick_20").val(),
+        map_pick_21: $(".map_pick_21").val(),
+        map_pick_22: $(".map_pick_22").val(),
+        map_pick_23: $(".map_pick_23").val(),
+        map_pick_24: $(".map_pick_24").val(),
+        map_pick_25: $(".map_pick_25").val(),
+        map_pick_26: $(".map_pick_26").val(),
+        map_pick_27: $(".map_pick_27").val(),
+        map_pick_28: $(".map_pick_28").val(),
+
         playing_20: $(".playing_20").val(),
+        playing_21: $(".playing_21").val(),
+        playing_22: $(".playing_22").val(),
+        playing_23: $(".playing_23").val(),
+        playing_24: $(".playing_24").val(),
+        playing_25: $(".playing_25").val(),
+        playing_26: $(".playing_26").val(),
+        playing_27: $(".playing_27").val(),
       },
       team_3: {
         team: $("#team_3").val(),
@@ -518,8 +562,33 @@ $(document).ready(() => {
       team_12: {
         team: $("#team_12").val(),
       },
+      team_20: {
+        team: $("#team_20").val(),
+      },
+      team_21: {
+        team: $("#team_21").val(),
+      },
+      team_22: {
+        team: $("#team_22").val(),
+      },
+      team_23: {
+        team: $("#team_23").val(),
+      },
+      team_24: {
+        team: $("#team_24").val(),
+      },
+      team_25: {
+        team: $("#team_25").val(),
+      },
+      team_26: {
+        team: $("#team_26").val(),
+      },
+      team_27: {
+        team: $("#team_27").val(),
+      },
     };
     io.emit("update_match", match);
+    console.log("Panel.js: Set2 button clicked");
   });
   $("#swap").click(() => {
     let match = {
@@ -4748,125 +4817,129 @@ $(document).ready(() => {
         coach: $("#team_2_coach").val(),
       },
       team_3: {
-        team: $("#team_12").val(),
+        team: $().val(),
       },
       team_4: {
-        team: $("#team_12").val(),
+        team: $().val(),
       },
       team_5: {
-        team: $("#team_12").val(),
+        team: $().val(),
       },
       team_6: {
-        team: $("#team_12").val(),
+        team: $().val(),
       },
       team_7: {
-        team: $("#team_12").val(),
+        team: $().val(),
       },
       team_8: {
-        team: $("#team_12").val(),
+        team: $().val(),
       },
       team_9: {
-        team: $("#team_12").val(),
+        team: $().val(),
       },
       team_10: {
-        team: $("#team_12").val(),
+        team: $().val(),
       },
       team_11: {
-        team: $("#team_112").val(),
+        team: $().val(),
       },
       team_12: {
-        team: $("#team_12").val(),
+        team: $().val(),
       },
       team_20: {
-        team: $("#team_12").val(),
+        team: $().val(),
       },
       team_21: {
-        team: $("#team_12").val(),
+        team: $().val(),
       },
       team_22: {
-        team: $("#team_12").val(),
+        team: $().val(),
       },
       team_23: {
-        team: $("#team_12").val(),
+        team: $().val(),
       },
       team_24: {
-        team: $("#team_12").val(),
+        team: $().val(),
       },
       team_25: {
-        team: $("#team_12").val(),
+        team: $().val(),
       },
       team_26: {
-        team: $("#team_12").val(),
+        team: $().val(),
       },
       team_27: {
-        team: $("#team_12").val(),
+        team: $().val(),
       },
       map: {
         coach: $("#team_1_coach").val(),
         coach: $("#team_2_coach").val(),
         online_map: $("#online_map").val(),
-        team_pick_map: $("#team_pick_map").val(),
-        map_pick_1: $(".map_pick_1").val(),
-        team_1_pick: $(".team_1_pick").val(),
-        score_map_1: $(".score_map_1").val(),
-        win_map_1: $(".win_map_1").val(),
-        playing_1: $(".playing_1").val(),
-        map_pick_2: $(".map_pick_2").val(),
-        team_2_pick: $(".team_2_pick").val(),
-        score_map_2: $(".score_map_2").val(),
-        playing_2: $(".playing_2").val(),
-        win_map_2: $(".win_map_2").val(),
-        map_pick_4: $(".map_pick_4").val(),
-        team_4_pick: $(".team_4_pick").val(),
-        score_map_4: $(".score_map_4").val(),
-        playing_4: $(".playing_4").val(),
-        win_map_4: $(".win_map_4").val(),
-        map_pick_5: $(".map_pick_5").val(),
-        team_5_pick: $(".team_5_pick").val(),
-        score_map_5: $(".score_map_5").val(),
-        playing_5: $(".playing_5").val(),
-        win_map_5: $(".win_map_5").val(),
-        decider_map: $(".decider_map").val(),
-        score_map_3: $(".score_map_3").val(),
-        win_map_3: $(".win_map_3").val(),
-        playing_3: $(".playing_3").val(),
-        decider_map2: $(".decider_map2").val(),
-        score_map_6: $(".score_map_6").val(),
-        win_map_6: $(".win_map_6").val(),
-        playing_6: $(".playing_6").val(),
-        left_events: $("#left_events").val(),
-        right_events: $("#right_events").val(),
-        pick_map_team1: $("#pick_map_team1").val(),
-        pick_map_team2: $("#pick_map_team2").val(),
-        pick_map_team4: $("#pick_map_team4").val(),
-        pick_map_team5: $("#pick_map_team5").val(),
-        decider: $("#decider").val(),
-        decider2: $("#decider2").val(),
-        logo_champ: $("#logo_champ").val(),
+        team_pick_map: $().val(),
+        map_pick_1: $().val(),
+        team_1_pick: $().val(),
+        score_map_1: $().val(),
+        win_map_1: $().val(),
+        playing_1: $().val(),
+        map_pick_2: $().val(),
+        team_2_pick: $().val(),
+        score_map_2: $().val(),
+        playing_2: $().val(),
+        win_map_2: $().val(),
+        map_pick_4: $().val(),
+        team_4_pick: $().val(),
+        score_map_4: $().val(),
+        playing_4: $().val(),
+        win_map_4: $().val(),
+        map_pick_5: $().val(),
+        team_5_pick: $().val(),
+        score_map_5: $().val(),
+        playing_5: $().val(),
+        win_map_5: $().val(),
+        decider_map: $().val(),
+        score_map_3: $().val(),
+        win_map_3: $().val(),
+        playing_3: $().val(),
+        decider_map2: $().val(),
+        score_map_6: $().val(),
+        win_map_6: $().val(),
+        playing_6: $().val(),
+        left_events: $().val(),
+        right_events: $().val(),
+        pick_map_team1: $().val(),
+        pick_map_team2: $().val(),
+        pick_map_team4: $().val(),
+        pick_map_team5: $().val(),
+        decider: $().val(),
+        decider2: $().val(),
+        logo_champ: $().val(),
         //- vote -//
         map_pick_20: $(".map_pick_20").val(),
-        map_pick_21: $(".map_pick_21").val(),
-        map_pick_22: $(".map_pick_22").val(),
-        map_pick_23: $(".map_pick_23").val(),
-        map_pick_24: $(".map_pick_24").val(),
-        map_pick_25: $(".map_pick_25").val(),
-        map_pick_26: $(".map_pick_26").val(),
-        map_pick_27: $(".map_pick_27").val(),
-        map_pick_28: $(".map_pick_28").val(),
+        map_pick_21: $().val(),
+        map_pick_22: $().val(),
+        map_pick_23: $().val(),
+        map_pick_24: $().val(),
+        map_pick_25: $().val(),
+        map_pick_26: $().val(),
+        map_pick_27: $().val(),
+        map_pick_28: $().val(),
 
-        playing_20: $(".playing_20").val(),
-        playing_21: $(".playing_21").val(),
-        playing_22: $(".playing_22").val(),
-        playing_23: $(".playing_23").val(),
-        playing_24: $(".playing_24").val(),
-        playing_25: $(".playing_25").val(),
-        playing_26: $(".playing_26").val(),
-        playing_27: $(".playing_27").val(),
+        playing_20: $().val(),
+        playing_21: $().val(),
+        playing_22: $().val(),
+        playing_23: $().val(),
+        playing_24: $().val(),
+        playing_25: $().val(),
+        playing_26: $().val(),
+        playing_27: $().val(),
       },
     };
     io.emit("update_match", match);
     console.log("Panel.js Connected to io");
   });
+  $("#ref2").click(() => {
+    io.emit("refresh", true);
+  });
+
   /*$("#res").click(() => {
     io.emit("reset", true);
   });*/
