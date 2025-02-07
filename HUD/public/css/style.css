@@ -20,7 +20,7 @@
   //display: flex;
   //justify-content: center;
   //flex: 0.5;
-  width: 100%;
+  width: 20%;
 }
 #swap3 {
   //display: flex;
@@ -35,6 +35,12 @@
   width: 20%;
 }
 #ref {
+  //display: flex;
+  //justify-content: center;
+  //flex: 0.5;
+  width: 20%;
+}
+#ref2 {
   //display: flex;
   //justify-content: center;
   //flex: 0.5;
