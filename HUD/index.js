@@ -1,10 +1,10 @@
 const http = require("http"),
   apps = require("express"),
   app = apps(),
-  request = require("request"),
+  request = require("retry-request"),
   express = require("http").Server(app),
   io = require("socket.io")(express),
-  fs = require("fs"),
+  fs = require("fs-extra"),
   //address = "localhost",
   address = require("ip").address(),
   players = require("./mod/players.js"),
@@ -189,7 +189,7 @@ io.on("connection", (socket) => {
     io.emit("refresh", data);
   });
   //Receiving and emitting hidePlayers for coaches
-  socket.on("hidePlayers", data => {
+  socket.on("hidePlayers", (data) => {
     io.emit("hidePlayers", data);
   });
   socket.on("toggleScoreboard", (data) => {
