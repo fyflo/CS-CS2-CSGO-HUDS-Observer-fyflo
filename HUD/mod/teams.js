@@ -1,113 +1,132 @@
-const db = require('./database.js').teams;
-const fs = require('fs');
+const low = require("lowdb");
+const FileSync = require("lowdb/adapters/FileSync");
+const fs = require("fs");
+const shortid = require("shortid");
+const address = require("ip").address();
 
-db.loadDatabase();
+// Инициализация базы данных
+const adapter = new FileSync("./databases/teams.json");
+const db = low(adapter);
+db.defaults({ teams: [] }).write();
 
-exports.getTeams = (req, res) => {
-    db.find({}, (err, teamList) => {
-        if (err) return res.sendStatus(500);
-        res.setHeader('Content-Type', 'application/json');
-        return res.json({
-            teams: teamList
-        });
-    });
-};
-exports.addTeam = (req, res) => {
-    let team = req.body;
-    delete team._id;
-
-    if (req.file) team.logo = req.file.filename;
-
-    db.insert(team, (err, newTeam) => {
-        if (err) return res.sendStatus(500);
-        return res.status(200).json({
-            id: newTeam["_id"]
-        });
-    });
-};
-exports.updateTeam = (req, res) => {
-    let team = req.body;
-    let teamId = team._id;
-    delete team._id;
-
-    if (req.file) team.logo = req.file.filename;
-
-    function removeLogoFile(err, teamList) {
-        if (err) return res.sendStatus(500);
-        if (!teamList[0]) return res.sendStatus(200);
-
-        if (fs.existsSync('./public/storage/' + teamList[0].logo)) fs.unlinkSync('./public/storage/' + teamList[0].logo);
-
-        db.update({
-            _id: teamId
-        }, {
-            $set: {
-                team_name: team.team_name,
-                short_name: team.short_name,
-                country_code: team.country_code,
-                logo: team.logo
-            }
-        }, {}, (err, numReplaced) => {
-            if (err) return res.sendStatus(500);
-            return res.sendStatus(200);
-        });
+module.exports = {
+  getTeams: (req, res) => {
+    try {
+      const teams = db.get("teams").value();
+      res.setHeader("Content-Type", "application/json");
+      return res.json({
+        teams: teams,
+      });
+    } catch (err) {
+      return res.sendStatus(500);
     }
+  },
 
+  addTeam: (req, res) => {
+    try {
+      let team = req.body;
+      delete team._id;
 
-    db.find({
-        _id: teamId
-    }, removeLogoFile);
-};
-exports.deleteTeam = (req, res) => {
-    let teamId = req.body.teamId;
+      if (req.file) {
+        team.logo = req.file.filename;
+      }
 
-    function removeTeam(err, teamList) {
-        if (err) return res.sendStatus(500);
-        if (!teamList[0]) return res.sendStatus(200);
+      team._id = shortid.generate();
+      db.get("teams").push(team).write();
 
-        if (fs.existsSync('./public/storage/' + teamList[0].logo)) fs.unlinkSync('./public/storage/' + teamList[0].logo);
-
-        db.remove({
-            _id: teamId
-        }, {}, (err, numRemoved) => {
-            if (err || numRemoved != 1) return res.sendStatus(500);
-            return res.sendStatus(200);
-        });
+      return res.status(200).json({
+        id: team._id,
+      });
+    } catch (err) {
+      return res.sendStatus(500);
     }
+  },
 
-    db.find({
-        _id: teamId
-    }, removeTeam);
-};
-exports.deleteLogo = (req, res) => {
-    let teamId = req.body.teamId;
+  updateTeam: (req, res) => {
+    try {
+      let team = req.body;
+      let teamId = team._id;
+      delete team._id;
 
-    function removeLogoFile(err, teamList) {
-        if (err) return res.sendStatus(500);
-        if (!teamList[0]) return res.sendStatus(200);
+      const oldTeam = db.get("teams").find({ _id: teamId }).value();
 
-        if (fs.existsSync('./public/storage/' + teamList[0].logo)) fs.unlinkSync('./public/storage/' + teamList[0].logo);
+      // Если есть новый файл логотипа, удаляем старый
+      if (req.file) {
+        team.logo = req.file.filename;
+        if (oldTeam && oldTeam.logo) {
+          const oldLogoPath = "./public/storage/" + oldTeam.logo;
+          if (fs.existsSync(oldLogoPath)) {
+            fs.unlinkSync(oldLogoPath);
+          }
+        }
+      }
 
-        db.update({
-            _id: teamId
-        }, {
-            $set: {
-                logo: null
-            }
-        }, {}, (err, numReplaced) => {
-            if (err) return res.sendStatus(500);
-            return res.sendStatus(200);
-        });
+      db.get("teams")
+        .find({ _id: teamId })
+        .assign({
+          team_name: team.team_name,
+          short_name: team.short_name,
+          country_code: team.country_code,
+          logo: team.logo,
+        })
+        .write();
+
+      return res.sendStatus(200);
+    } catch (err) {
+      return res.sendStatus(500);
     }
-    db.find({
-        _id: teamId
-    }, removeLogoFile);
-};
+  },
 
-exports.render = (req, res) => {
-    return res.render('teams', {
-        ip: address,
-        port: hud_port,
-        flags: getFlags()
+  deleteTeam: (req, res) => {
+    try {
+      const teamId = req.body.teamId;
+      const team = db.get("teams").find({ _id: teamId }).value();
+
+      // Удаляем файл логотипа, если он существует
+      if (team && team.logo) {
+        const logoPath = "./public/storage/" + team.logo;
+        if (fs.existsSync(logoPath)) {
+          fs.unlinkSync(logoPath);
+        }
+      }
+
+      const removed = db.get("teams").remove({ _id: teamId }).write();
+
+      if (!removed || removed.length !== 1) {
+        return res.sendStatus(500);
+      }
+      return res.sendStatus(200);
+    } catch (err) {
+      return res.sendStatus(500);
+    }
+  },
+
+  deleteLogo: (req, res) => {
+    try {
+      const teamId = req.body.teamId;
+      const team = db.get("teams").find({ _id: teamId }).value();
+
+      // Удаляем файл логотипа, если он существует
+      if (team && team.logo) {
+        const logoPath = "./public/storage/" + team.logo;
+        if (fs.existsSync(logoPath)) {
+          fs.unlinkSync(logoPath);
+        }
+      }
+
+      db.get("teams").find({ _id: teamId }).assign({ logo: null }).write();
+
+      return res.sendStatus(200);
+    } catch (err) {
+      return res.sendStatus(500);
+    }
+  },
+
+  render: (req, res) => {
+    return res.render("teams", {
+      ip: address,
+      port: hud_port,
+      flags: getFlags(),
     });
+  },
 };

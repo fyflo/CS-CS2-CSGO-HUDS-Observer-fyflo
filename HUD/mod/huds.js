@@ -1,9 +1,15 @@
-const db = require("./database.js").huds;
+const low = require("lowdb");
+const FileSync = require("lowdb/adapters/FileSync");
 const fs = require("fs");
 const address = require("ip").address();
-const child_process = require("child_process")
+const child_process = require("child_process");
+const shortid = require("shortid");
 
-db.loadDatabase();
+// Инициализация базы данных
+const adapter = new FileSync("./databases/huds.json");
+const db = low(adapter);
+db.defaults({ huds: [] }).write();
+
 module.exports = {
   loadConfig: () => {
     if (!fs.existsSync("./config.json")) return false;
@@ -13,7 +19,9 @@ module.exports = {
       config.Address = address;
       return config;
     } catch (e) {
-      console.warn("\n\tConfig file is corrupted or doesn't exist, proceeding with default values");
+      console.warn(
+        "\n\tConfig file is corrupted or doesn't exist, proceeding with default values"
+      );
       config.Address = address;
       config.ServerPort = 1248;
       config.GameStateIntegrationPort = 1337;
@@ -26,13 +34,10 @@ module.exports = {
       config.LeftImage = "";
       config.LeftImage2 = "";
       config.LeftImage3 = "";
-
       config.LeftOneImage = "";
       config.DisplayOnlyMainImage = "";
-
       config.DisplayScoreboard = true;
       config.DisplayRadar = false;
-
       config.LeftPrimary = "";
       config.LeftSecondary = "";
       config.RightImage = "";
@@ -44,6 +49,7 @@ module.exports = {
       return config;
     }
   },
+
   addHUD: (req, res) => {
     if (!fs.existsSync("./public/huds")) return res.sendStatus(500);
 
@@ -51,115 +57,113 @@ module.exports = {
       return fs.statSync("./public/huds/" + file).isDirectory();
     });
 
-    let instance = req.body; //name of instance, name of hud, seconds of delay;
-
+    let instance = req.body;
     instance.delay = !instance.delay || instance.delay < 0 ? 0 : instance.delay;
 
     if (!existingHUDs.includes(instance.hud)) return res.sendStatus(500);
 
-    db.insert(instance, (err, newHUD) => {
-      if (err) return res.sendStatus(500);
-
+    try {
+      instance._id = shortid.generate();
+      db.get("huds").push(instance).write();
       return res.status(200).json({
-        id: newHUD["_id"]
+        id: instance._id,
       });
-    });
+    } catch (err) {
+      return res.sendStatus(500);
+    }
   },
+
   getHUDs: (req, res) => {
     if (!fs.existsSync("./public/huds")) return res.sendStatus(500);
 
-    let existingHUDs = fs.readdirSync("./public/huds").filter(function (file) {
-      return fs.statSync("./public/huds/" + file).isDirectory();
-    });
+    try {
+      let existingHUDs = fs
+        .readdirSync("./public/huds")
+        .filter(function (file) {
+          return fs.statSync("./public/huds/" + file).isDirectory();
+        });
 
-    function getInstances(err, inst) {
-      if (err) return res.sendStatus(500);
+      // Удаляем HUD'ы, которых больше нет в файловой системе
+      db.get("huds")
+        .remove((hud) => !existingHUDs.includes(hud.hud))
+        .write();
 
       let files = {};
-
-      for (var i = 0; i < existingHUDs.length; i++) {
+      for (let i = 0; i < existingHUDs.length; i++) {
         let dirs = fs.readdirSync("./public/huds/" + existingHUDs[i] + "/");
         files[existingHUDs[i]] = dirs;
       }
+
+      const instances = db.get("huds").value();
+
       return res.status(200).json({
         huds: existingHUDs,
-        instances: inst,
-        files: files
+        instances: instances,
+        files: files,
       });
+    } catch (err) {
+      return res.sendStatus(500);
     }
-
-    function getExistingHUDs(err, numRemoved) {
-      if (err) return res.sendStatus(500);
-
-      db.find({}, getInstances);
-    }
-    db.remove(
-      {
-        hud: {
-          $nin: existingHUDs
-        }
-      },
-      {
-        multi: true
-      },
-      getExistingHUDs
-    );
   },
-  setHUD: (req, res) => {
-    let data = req.body;
 
-    if (!data.id || data.enabled == null || !data.name || data.delay == null) return res.sendStatus(500);
-    db.update(
-      {
-        _id: data.id
-      },
-      {
-        $set: {
+  setHUD: (req, res) => {
+    const data = req.body;
+
+    if (!data.id || data.enabled == null || !data.name || data.delay == null) {
+      return res.sendStatus(500);
+    }
+
+    try {
+      db.get("huds")
+        .find({ _id: data.id })
+        .assign({
           enabled: data.enabled,
           name: data.name,
-          delay: data.delay || 0
-        }
-      },
-      {},
-      (err, numReplaced) => {
-        if (err) return res.sendStatus(500);
-        return res.sendStatus(200);
-      }
-    );
+          delay: data.delay || 0,
+        })
+        .write();
+
+      return res.sendStatus(200);
+    } catch (err) {
+      return res.sendStatus(500);
+    }
   },
+
   deleteHUD: (req, res) => {
-    let id = req.body.id;
+    const id = req.body.id;
 
-    db.remove(
-      {
-        _id: id
-      },
-      {},
-      (err, numRemoved) => {
-        if (err || numRemoved != 1) return res.sendStatus(500);
-        return res.sendStatus(200);
+    try {
+      const removed = db.get("huds").remove({ _id: id }).write();
+
+      if (!removed || removed.length !== 1) {
+        return res.sendStatus(500);
       }
-    );
+      return res.sendStatus(200);
+    } catch (err) {
+      return res.sendStatus(500);
+    }
   },
+
   render: (req, res) => {
-    let config = module.exports.loadConfig();
-    let id = req.params.id;
+    const config = module.exports.loadConfig();
+    const id = req.params.id;
 
-    function displayHUD(err, huds) {
-      if (huds.length != 1) return res.sendStatus(500);
+    try {
+      const hud = db.get("huds").find({ _id: id }).value();
 
-      let hud = huds[0];
-
-      if (!fs.existsSync("./public/huds/default") || !fs.existsSync("./public/huds/" + hud.hud + "/template.pug")) return res.sendStatus(500);
+      if (!hud) return res.sendStatus(500);
       if (!hud.enabled) return res.redirect("/#huds");
 
-      let hud_dir = "/huds/" + hud.hud + "/index.js";
-      let css_dir = "/huds/" + hud.hud + "/style.css";
-      let anim_dir = "/huds/" + hud.hud + "/animate.css";
+      if (
+        !fs.existsSync("./public/huds/default") ||
+        !fs.existsSync("./public/huds/" + hud.hud + "/template.pug")
+      ) {
+        return res.sendStatus(500);
+      }
 
-      //let radar_index = child_process.fork(`./public/huds/${hud.hud}/radar/index.js`)
-
-      //var worker = new Worker('./public/huds/${hud.hud}/radar/index.js');
+      const hud_dir = "/huds/" + hud.hud + "/index.js";
+      const css_dir = "/huds/" + hud.hud + "/style.css";
+      const anim_dir = "/huds/" + hud.hud + "/animate.css";
 
       return res.render("../public/huds/" + hud.hud + "/template.pug", {
         ip: config.Address,
@@ -173,13 +177,10 @@ module.exports = {
         left_image: config.LeftImage,
         left_image2: config.LeftImage2,
         left_image3: config.LeftImage3,
-
         leftOneImage: config.LeftOneImage,
         displayOnlyMainImage: config.DisplayOnlyMainImage,
-
         displayScoreboard: config.DisplayScoreboard,
         displayRadar: config.DisplayRadar,
-
         left_primary: config.LeftPrimary,
         left_secondary: config.LeftSecondary,
         right_image: config.RightImage,
@@ -189,21 +190,15 @@ module.exports = {
         css: css_dir,
         anim: anim_dir,
         hud_path: hud.hud,
-        delay: hud.delay > 0 ? hud.delay : 0
+        delay: hud.delay > 0 ? hud.delay : 0,
       });
+    } catch (err) {
+      console.error("Error in render:", err);
+      return res.sendStatus(500);
     }
-
-    db.find(
-      {
-        _id: id
-      },
-      displayHUD
-    );
   },
 
   overlay: (req, res) => {
     return res.render("list.pug");
-  }
+  },
 };
-
-//s

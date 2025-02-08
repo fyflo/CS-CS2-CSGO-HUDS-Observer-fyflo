@@ -1,117 +1,144 @@
-const db = require('./database.js').players;
-const fs = require('fs');
+const low = require("lowdb");
+const FileSync = require("lowdb/adapters/FileSync");
+const fs = require("fs");
+const shortid = require("shortid");
 
-db.loadDatabase();
+// Инициализация базы данных
+const adapter = new FileSync("./databases/players.json");
+const db = low(adapter);
+
+// Установка значений по умолчанию, если файл пустой
+db.defaults({ players: [] }).write();
 
 exports.getPlayers = (req, res) => {
-    db.find({}, (err, playerList) => {
-        if (err)
-            res.sendStatus(500);
-        res.setHeader('Content-Type', 'application/json');
-        return res.json({
-            players: playerList
-        });
+  try {
+    const playerList = db.get("players").value();
+    res.setHeader("Content-Type", "application/json");
+    return res.json({
+      players: playerList,
     });
+  } catch (err) {
+    return res.sendStatus(500);
+  }
 };
+
 exports.addPlayer = (req, res) => {
+  try {
     let user = req.body;
     delete user._id;
+    user._id = shortid.generate();
 
-    if (req.file) user.avatar = req.file.filename;
+    if (req.file) {
+      user.avatar = req.file.filename;
+    }
 
-    db.insert(user, (err, newUser) => {
-        if (err) return res.sendStatus(500);
-        return res.status(200).json({
-            id: newUser["_id"]
-        });
+    db.get("players").push(user).write();
+
+    return res.status(200).json({
+      id: user._id,
     });
+  } catch (err) {
+    return res.sendStatus(500);
+  }
 };
+
 exports.updatePlayer = (req, res) => {
+  try {
     let user = req.body;
     let userId = user._id;
     delete user._id;
 
-    if (req.file) user.avatar = req.file.filename;
+    // Находим существующего игрока
+    const existingPlayer = db.get("players").find({ _id: userId }).value();
 
-    function removeAvatarFile(err, playerList) {
-        if (err) return res.sendStatus(500);
-        if (!playerList[0]) return res.sendStatus(200);
-
-        if (fs.existsSync('./public/storage/' + playerList[0].avatar)) fs.unlinkSync('./public/storage/' + playerList[0].avatar);
-
-        db.update({
-            _id: userId
-        }, {
-            $set: {
-                sid: user.sid,
-                real_name: user.real_name,
-                displayed_name: user.displayed_name,
-                country_code: user.country_code,
-                team: user.team,
-                avatar: user.avatar
-            }
-        }, {}, (err, numReplaced) => {
-            if (err) return res.sendStatus(500);
-            return res.sendStatus(200);
-        });
+    if (!existingPlayer) {
+      return res.sendStatus(404);
     }
 
+    // Удаляем старый аватар если загружен новый
+    if (req.file) {
+      user.avatar = req.file.filename;
+      if (
+        existingPlayer.avatar &&
+        fs.existsSync("./public/storage/" + existingPlayer.avatar)
+      ) {
+        fs.unlinkSync("./public/storage/" + existingPlayer.avatar);
+      }
+    }
 
-    db.find({
-        _id: userId
-    }, removeAvatarFile);
+    // Обновляем данные
+    db.get("players")
+      .find({ _id: userId })
+      .assign({
+        sid: user.sid,
+        real_name: user.real_name,
+        displayed_name: user.displayed_name,
+        country_code: user.country_code,
+        team: user.team,
+        avatar: user.avatar,
+      })
+      .write();
+
+    return res.sendStatus(200);
+  } catch (err) {
+    return res.sendStatus(500);
+  }
 };
+
 exports.deletePlayer = (req, res) => {
-    let userId = req.body.userId;
+  try {
+    const userId = req.body.userId;
 
-    function removePlayer(err, playerList) {
-        if (err) return res.sendStatus(500);
-        if (!playerList[0]) return res.sendStatus(200);
+    // Находим игрока перед удалением
+    const player = db.get("players").find({ _id: userId }).value();
 
-        if (fs.existsSync('./public/storage/' + playerList[0].avatar)) fs.unlinkSync('./public/storage/' + playerList[0].avatar);
-
-        db.remove({
-            _id: userId
-        }, {}, (err, numRemoved) => {
-            if (err || numRemoved != 1) return res.sendStatus(500);
-            return res.sendStatus(200);
-        });
+    if (!player) {
+      return res.sendStatus(200);
     }
 
-    db.find({
-        _id: userId
-    }, removePlayer);
+    // Удаляем файл аватара если существует
+    if (player.avatar && fs.existsSync("./public/storage/" + player.avatar)) {
+      fs.unlinkSync("./public/storage/" + player.avatar);
+    }
+
+    // Удаляем игрока из базы
+    db.get("players").remove({ _id: userId }).write();
+
+    return res.sendStatus(200);
+  } catch (err) {
+    return res.sendStatus(500);
+  }
 };
 
 exports.deleteAvatar = (req, res) => {
-    let userId = req.body.userId;
+  try {
+    const userId = req.body.userId;
 
-    function removeAvatarFile(err, playerList) {
-        if (err) return res.sendStatus(500);
-        if (!playerList[0]) return res.sendStatus(200);
+    // Находим игрока
+    const player = db.get("players").find({ _id: userId }).value();
 
-        if (fs.existsSync('./public/storage/' + playerList[0].avatar)) fs.unlinkSync('./public/storage/' + playerList[0].avatar);
-
-        db.update({
-            _id: userId
-        }, {
-            $set: {
-                logo: null
-            }
-        }, {}, (err, numReplaced) => {
-            if (err) return res.sendStatus(500);
-            return res.sendStatus(200);
-        });
+    if (!player) {
+      return res.sendStatus(200);
     }
-    db.find({
-        _id: userId
-    }, removeAvatarFile);
+
+    // Удаляем файл аватара если существует
+    if (player.avatar && fs.existsSync("./public/storage/" + player.avatar)) {
+      fs.unlinkSync("./public/storage/" + player.avatar);
+    }
+
+    // Обновляем запись в базе
+    db.get("players").find({ _id: userId }).assign({ avatar: null }).write();
+
+    return res.sendStatus(200);
+  } catch (err) {
+    return res.sendStatus(500);
+  }
 };
 
 exports.render = (req, res) => {
-    return res.render('players', {
-        ip: address,
-        port: hud_port,
-        flags: getFlags()
-    });
+  return res.render("players", {
+    ip: address,
+    port: hud_port,
+    flags: getFlags(),
+  });
 };
