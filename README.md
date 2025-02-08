@@ -133,7 +133,9 @@ Basically, CS:GO/CS2 is streaming data to local app-server, that transforms data
 
 ## How to make it run?
 
-- Install NodeJS v20.18.0 (nodejs.org)
+- Install NodeJS v20.18.0 (nodejs.org) if you are using a release before 2.0.9
+- Install NodeJS v22.13.1 or higher (nodejs.org) if you are using release 2.0.9 or higher
+- 
 ##
 - Start CS2_HUD_fyflo.exe
 ##
