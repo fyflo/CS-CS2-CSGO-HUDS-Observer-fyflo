@@ -8,7 +8,13 @@ In order to transfer the player, team and HUD database, you need to download thi
 We replace everything else when unpacking.
 
 1. Go to the HUD folder and call cmd in the address bar.
-2. Enter the commands one by one: 1. npm install lowdb@1.0.0 shortid nedb path , 2. node migrations/migrate-teams.js , 3. node migrations/migrate-huds.js , 4. node migrations/nedb-to-lowdb.js
+2. Enter the commands one by one:
+```commands
+   	npm install lowdb@1.0.0 shortid nedb path
+	node migrations/migrate-teams.js
+	node migrations/migrate-huds.js
+	node migrations/nedb-to-lowdb.js
+```
 3. Now run it as a standard program via CS2_HUD_fyflo.exe
 
 [MY DISCORD](https://discord.gg/7BtSdAmTf8) We discuss, propose and try to implement together.
