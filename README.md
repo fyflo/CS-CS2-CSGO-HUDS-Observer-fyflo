@@ -17,7 +17,7 @@ We replace everything else when unpacking.
 ```
 3. Now run it as a standard program via CS2_HUD_fyflo.exe
 
-[MY DISCORD](https://discord.gg/7BtSdAmTf8) We discuss, propose and try to implement together.
+[MY DISCORD](https://discordapp.com/channels/392006529206976512/392006529206976514) We discuss, propose and try to implement together.
 
 ## NEW OVERLAY
 1. [OVERLAY 2k](https://drive.google.com/file/d/1MpVZwhrmr0-cL3VijTfKtBwfLF5ZAQJv/view?usp=drive_link)
