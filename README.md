@@ -1,3 +1,7 @@
+The project is closed.
+Use the new version
+[# CS2-CSGO-HUDS-Observer-fyflo](https://github.com/fyflo/CS2_Manager_HUD)
+
 # CS2-CSGO-HUDS-Observer-fyflo
 
 # Update bd
